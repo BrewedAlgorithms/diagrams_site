@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Checkout UI Wireframe - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            height: 600px;
+            width: 100%;
+        }
+        #diagram-element {
+            transform-origin: 0 0;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .zoom-controls button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .zoom-controls button:hover {
+            background: var(--primary-color);
+        }
+        .mermaid {
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+        .mermaid svg {
+            touch-action: none;
+            width: 100%;
+            height: 100%;
+            display: block !important;
+            min-width: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../index.html#technology">Technology</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <div class="page-content">
+            <h1 class="section-title" data-aos="fade-up">Smart Checkout UI Wireframe</h1>
+            
+            <div class="diagram-explanation" data-aos="fade-up">
+                <p>Our NeuroNexus features a seamless user interface that guides customers through each step of the checkout process. The diagram below illustrates the complete customer journey from the welcome screen to payment confirmation, highlighting how our thoughtfully designed UI enhances the shopping experience.</p>
+            </div>
+            
+            <div class="diagram-container" data-aos="fade-up">
+                <div class="zoom-controls">
+                    <!-- <button id="zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button> -->
+                    <button id="reset-zoom" title="Reset Zoom"><i class="fas fa-home"></i></button>
+                </div>
+                <div id="diagram-element">
+                    <div class="mermaid">
+                    flowchart LR
+                        %% Use horizontal layout for better readability
+                        
+                        %% Main screens with more detail but contextual notes
+                        Welcome["👋 WELCOME SCREEN<br><br>Smart Checkout<br>Place items in scanning zone<br><br><i>• Voice assistance available<br>• Multi-language support</i>"]
+                        
+                        Scanning["📡 SCANNING<br><br>Items detected: 7<br>Progress: 80%<br><br><i>• Real-time product recognition<br>• Weight verification active</i>"]
+                        
+                        Cart["🛒 CART REVIEW<br><br>• Milk - ₹120<br>• Bread - ₹40<br>• Apples - ₹150<br>• Biscuits - ₹35<br>Total: ₹3,250<br><br><i>• Apply discount code<br>• Loyalty points: 325 earned</i>"]
+                        
+                        Payment["💳 PAYMENT METHODS<br><br>Total: ₹3,250<br>Select payment option<br><br><i>• Secure payment gateway<br>• Multiple options available</i>"]
+                        
+                        Receipt["✅ COMPLETE<br><br>Payment Successful<br>Thank you for shopping!<br><br><i>• Digital receipt sent to: user@email.com<br>• 5% discount on next purchase</i>"]
+                        
+                        %% Payment options with more detail and India-specific options
+                        Biometric["👆 FINGERPRINT<br><br>Place finger on scanner<br><br><i>• Secure biometric verification<br>• Secure & fast authentication</i>"]
+                        
+                        NFC["📱 MOBILE/NFC<br><br>Tap phone to reader<br><br><i>• UPI Payment (BHIM, GPay)<br>• PayTM, PhonePe supported</i>"]
+                        
+                        Card["💳 CARD<br><br>Insert or tap card<br><br><i>• Credit/Debit/RuPay<br>• EMI options available</i>"]
+                        
+                        %% Additional Indian payment option
+                        Cash["💵 CASH<br><br>Pay at counter<br><br><i>• Exact change preferred<br>• Cash receipts available</i>"]
+                        
+                        %% Help system
+                        HelpSystem["❓ HELP & SUPPORT<br><br>• Video tutorials<br>• Call attendant<br>• FAQs"]
+                        
+                        %% Clean flow with descriptive labels
+                        Welcome -->|"Start Shopping"| Scanning
+                        Scanning -->|"Items Scanned Successfully"| Cart
+                        Cart -->|"Proceed to Payment"| Payment
+                        
+                        %% Payment methods branching
+                        Payment -->|"Select"| Biometric
+                        Payment -->|"Select"| NFC
+                        Payment -->|"Select"| Card
+                        Payment -->|"Select"| Cash
+                        
+                        %% All payment methods lead to receipt
+                        Biometric -->|"Verified"| Receipt
+                        NFC -->|"Confirmed"| Receipt
+                        Card -->|"Approved"| Receipt
+                        Cash -->|"Completed"| Receipt
+                        
+                        %% Help system connections
+                        Welcome -.->|"Need Help?"| HelpSystem
+                        Scanning -.->|"Need Help?"| HelpSystem
+                        Cart -.->|"Need Help?"| HelpSystem
+                        Payment -.->|"Need Help?"| HelpSystem
+                        HelpSystem -.->|"Return"| Welcome
+                        
+                        %% Return flow
+                        Receipt -->|"New Transaction"| Welcome
+                        
+                        %% Add back buttons with clear labeling
+                        Cart -.->|"Back to Scanning"| Scanning
+                        Payment -.->|"Back to Cart"| Cart
+                        
+                        %% Styling
+                        style Welcome fill:#bbdefb,stroke:#1976d2
+                        style Scanning fill:#c8e6c9,stroke:#388e3c
+                        style Cart fill:#e1bee7,stroke:#8e24aa
+                        style Payment fill:#ffe0b2,stroke:#f57c00
+                        style Receipt fill:#dcedc8,stroke:#689f38
+                        
+                        style Biometric fill:#fff9c4,stroke:#fbc02d
+                        style NFC fill:#d1c4e9,stroke:#512da8
+                        style Card fill:#ffccbc,stroke:#e64a19
+                        style Cash fill:#ffecb3,stroke:#ffa000
+                        style HelpSystem fill:#cfd8dc,stroke:#607d8b
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-explanation" data-aos="fade-up">
+                <h2>Understanding the User Journey</h2>
+                <p>Our UI wireframe shows how customers move through the Smart Checkout experience with intuitive, straightforward steps. Here's what makes our interface special:</p>
+                <br>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Inclusive Welcome Screen</h3>
+                        <p>The journey begins with a welcoming interface that supports multiple languages and voice assistance, making our system accessible to everyone. Clear instructions guide users to place their items in the scanning zone to begin.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Intelligent Scanning</h3>
+                        <p>As customers place items in the scanning area, our system provides real-time feedback showing the number of items detected and scanning progress. The AI-powered product recognition works automatically, with weight verification ensuring accuracy without any manual barcode scanning.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Detailed Cart Review</h3>
+                        <p>Customers can review their items with clear pricing displayed for each product. The cart screen also shows the running total and allows users to apply discount codes or see loyalty points earned, creating transparency and trust in the checkout process.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Flexible Payment Options</h3>
+                        <p>Our system offers multiple payment methods tailored to local preferences, including secure biometric authentication, mobile/NFC payments supporting popular apps like UPI, PayTM and PhonePe, traditional card payments, and cash options. This flexibility ensures every customer can pay their preferred way.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Always-Available Help</h3>
+                        <p>Help is just a tap away at every stage of the checkout journey. Customers can access video tutorials, frequently asked questions, or call for staff assistance whenever needed, ensuring they never feel stuck or confused.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Easy Navigation Controls</h3>
+                        <p>The interface features intuitive back buttons allowing customers to correct mistakes or make changes at any point. This creates a forgiving system that accommodates the natural shopping process where decisions may change during checkout.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons" data-aos="fade-up">
+                <a href="7_state_machine.html" class="nav-button prev">
+                    <i class="fas fa-chevron-left"></i> State Machine
+                </a>
+                <a href="9_security_architecture.html" class="nav-button next">
+                    Security Architecture <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 NeuroNexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Mermaid with specific settings for better rendering
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            logLevel: 'error'
+        });
+
+        // Function to check if an element is visible in the viewport
+        function isElementVisible(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Allow some time for mermaid to render first
+            let attempts = 0;
+            const maxAttempts = 10;
+            const checkInterval = 500; // Check every 500ms
+            
+            function initPanzoom() {
+                const mermaidDiv = document.querySelector('.mermaid');
+                const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
+                
+                if (diagramSvg && isElementVisible(diagramSvg)) {
+                    console.log("Mermaid diagram rendered successfully!");
+                    
+                    // Make sure the SVG is fully visible
+                    diagramSvg.style.display = 'block';
+                    diagramSvg.style.width = '100%';
+                    diagramSvg.style.height = '100%';
+                    diagramSvg.style.minWidth = '100%';
+                    diagramSvg.style.minHeight = '100%';
+                    
+                    // Initialize Panzoom on the diagram element
+                    const element = document.getElementById('diagram-element');
+                    
+                    if (element && typeof Panzoom === 'function') {
+                        try {
+                            // Initialize Panzoom with optimized settings
+                            const panzoom = Panzoom(element, {
+                                maxScale: 5,
+                                minScale: 0.5,
+                                contain: 'outside',
+                                excludeClass: 'zoom-controls',
+                                canvas: true
+                            });
+                            
+                            // Set the cursor style
+                            element.style.cursor = 'grab';
+                            
+                            // Enable mouse wheel zooming
+                            element.addEventListener('wheel', function(e) {
+                                e.preventDefault();
+                                const delta = e.deltaY;
+                                
+                                if (delta > 0) {
+                                    panzoom.zoomOut(0.2, {
+                                        animate: false
+                                    });
+                                } else {
+                                    panzoom.zoomIn(0.2, {
+                                        animate: false
+                                    });
+                                }
+                            });
+                            
+                            // Change cursor when dragging
+                            element.addEventListener('mousedown', function() {
+                                this.style.cursor = 'grabbing';
+                            });
+                            
+                            element.addEventListener('mouseup', function() {
+                                this.style.cursor = 'grab';
+                            });
+                            
+                            // Connect zoom control buttons
+                            document.getElementById('zoom-in').addEventListener('click', function() {
+                                panzoom.zoomIn(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('zoom-out').addEventListener('click', function() {
+                                panzoom.zoomOut(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('reset-zoom').addEventListener('click', function() {
+                                panzoom.reset({ animate: true });
+                            });
+                            
+                            // Prevent text selection when dragging
+                            element.addEventListener('selectstart', function(e) {
+                                e.preventDefault();
+                                return false;
+                            });
+                            
+                            console.log("Panzoom initialized successfully");
+                        } catch (error) {
+                            console.error("Panzoom initialization error:", error);
+                        }
+                    } else {
+                        console.warn("Diagram element not found or Panzoom not available");
+                    }
+                } else {
+                    // Try again if we haven't exceeded max attempts
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
+                        setTimeout(initPanzoom, checkInterval);
+                    } else {
+                        console.error("Failed to find rendered Mermaid diagram after multiple attempts");
+                        alert("There was a problem rendering the diagram. Please refresh the page to try again.");
+                    }
+                }
+            }
+            
+            // Start checking for diagram rendering
+            setTimeout(initPanzoom, 500);
+        });
+    </script>
+</body>
+</html> 

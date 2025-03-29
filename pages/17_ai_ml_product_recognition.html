@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI/ML Product Recognition - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            height: 700px;
+            width: 100%;
+        }
+        #diagram-element {
+            transform-origin: 0 0;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .zoom-controls button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .zoom-controls button:hover {
+            background: var(--primary-color);
+        }
+        .mermaid {
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+        .mermaid svg {
+            touch-action: none;
+            width: 100%;
+            height: 100%;
+            display: block !important;
+            min-width: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../index.html#technology">Technology</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <div class="page-content">
+            <h1 class="section-title" data-aos="fade-up">AI/ML Product Recognition Flow</h1>
+            
+            <div class="diagram-explanation" data-aos="fade-up">
+                <p>This diagram illustrates the AI/ML-powered product recognition system that enables the Smart Checkout solution to identify products without barcodes or RFID tags. The system uses multiple data inputs, sophisticated neural networks, and continuous learning to achieve high accuracy in product identification, significantly enhancing the checkout experience.</p>
+            </div>
+            
+            <div class="diagram-container" data-aos="fade-up">
+                <div class="zoom-controls">
+                    <button id="zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                    <button id="reset-zoom" title="Reset Zoom"><i class="fas fa-home"></i></button>
+                </div>
+                <div id="diagram-element">
+                    <div class="mermaid">
+                    flowchart TD
+                        %% Capture sources
+                        Camera["📷 Multi-angle Camera System"]
+                        WeightSensor["⚖️ Weight Sensor"]
+                        RFIDReader["📡 RFID Reader"]
+                        
+                        %% Pre-processing
+                        ImagePrep["🔄 Image Pre-processing
+                        • Noise Reduction
+                        • Lighting Normalization
+                        • Background Removal"]
+                        
+                        %% Core ML components
+                        CNN["🧠 Convolutional Neural Network
+                        • Shape Analysis
+                        • Color Detection
+                        • Texture Classification"]
+                        
+                        %% Feature extraction
+                        FeatureExtract["🔍 Feature Extraction
+                        • Product Visual Signatures
+                        • Dimensional Analysis
+                        • Package Patterns"]
+                        
+                        %% Main identification node
+                        ProductID["🏷️ Product Identification
+                        • 98.7% Accuracy for Common Items
+                        • 94.3% Accuracy for Produce
+                        • 99.9% Accuracy for Packaged Goods"]
+                        
+                        %% Confidence check
+                        ConfidenceCheck{"⚠️ Confidence 
+                        Threshold 
+                        Check"}
+                        
+                        %% Validation methods
+                        CrossValidate["✅ Cross-Validation
+                        • Weight Verification
+                        • RFID Tag Match
+                        • Historical Purchase Data"]
+                        
+                        %% Data sources
+                        ProductDB[(🗄️ Product Database
+                        • 50,000+ Product Images
+                        • Weight Profiles
+                        • Visual Signatures)]
+                        
+                        PurchaseHistory[(📊 Customer Purchase History)]
+                        
+                        %% System integration
+                        Checkout["🛒 Checkout System Integration"]
+                        
+                        FraudDetection{"🔒 Fraud 
+                        Detection
+                        Algorithm"}
+                        
+                        %% Outputs
+                        UserConfirmation["👤 User Confirmation Interface"]
+                        StaffAlert["👨‍💼 Staff Alert & Override"]
+                        
+                        %% Continuous improvement loop
+                        FeedbackLoop["♻️ Continuous Learning Loop
+                        • New Product Training
+                        • Error Correction
+                        • Model Retraining"]
+                        
+                        %% Connections
+                        Camera --> ImagePrep
+                        ImagePrep --> CNN
+                        CNN --> FeatureExtract
+                        FeatureExtract --> ProductID
+                        
+                        ProductDB -->|Training Data| CNN
+                        ProductDB -->|Reference Data| ProductID
+                        
+                        PurchaseHistory -->|Pattern Analysis| CrossValidate
+                        
+                        ProductID --> ConfidenceCheck
+                        
+                        WeightSensor --> CrossValidate
+                        RFIDReader --> CrossValidate
+                        
+                        ConfidenceCheck -->|High Confidence ≥95%| Checkout
+                        ConfidenceCheck -->|Medium Confidence 80-95%| CrossValidate
+                        ConfidenceCheck -->|Low Confidence <80%| UserConfirmation
+                        
+                        CrossValidate --> FraudDetection
+                        
+                        FraudDetection -->|Pass| Checkout
+                        FraudDetection -->|Fail| StaffAlert
+                        
+                        UserConfirmation --> Checkout
+                        UserConfirmation -->|Incorrect Item| FeedbackLoop
+                        
+                        StaffAlert --> FeedbackLoop
+                        Checkout -->|Transaction Data| PurchaseHistory
+                        
+                        %% Daily updates
+                        FeedbackLoop -->|Model Updates| ProductDB
+                        
+                        %% Performance metrics
+                        subgraph "Performance Metrics"
+                        direction TB
+                        RecognitionSpeed["⏱️ Recognition Speed: 0.3-0.5 sec/item"]
+                        AccuracyRate["📈 Overall Accuracy: 96.8%"]
+                        FalsePositive["🚫 False Positive Rate: 0.7%"]
+                        end
+                        
+                        %% Connect metrics to relevant processes
+                        ProductID --- RecognitionSpeed
+                        ProductID --- AccuracyRate
+                        FraudDetection --- FalsePositive
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-explanation" data-aos="fade-up">
+                <h2>AI/ML Product Recognition Components</h2>
+                <p>The NeuroNexus leverages state-of-the-art AI and machine learning technologies to identify products quickly and accurately:</p>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Multi-Source Data Capture</h3>
+                        <p>The system integrates data from multiple sources for comprehensive product identification. The multi-angle camera system captures high-resolution images of products from different perspectives, ensuring accurate recognition regardless of product orientation. Weight sensors provide precise measurements that help verify product identity and quantity. The RFID reader works alongside visual recognition to provide redundancy and improve accuracy for tagged items, creating a robust multi-modal identification approach.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Advanced Neural Networks</h3>
+                        <p>At the core of the product recognition system is a sophisticated convolutional neural network (CNN) specifically trained on retail products. The CNN performs shape analysis, color detection, and texture classification to identify products, even those with similar appearances. Before processing, images undergo preparation including noise reduction, lighting normalization, and background removal to enhance recognition accuracy. The feature extraction layer identifies product visual signatures, performs dimensional analysis, and recognizes packaging patterns for precise identification.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Confidence-Based Validation</h3>
+                        <p>The system implements a confidence threshold check that determines how to process each recognition result. For high-confidence matches (≥95%), products proceed directly to checkout. Medium-confidence matches (80-95%) undergo cross-validation using weight verification, RFID tag matching, and historical purchase data. Low-confidence matches (&lt;80%) are presented to the user for confirmation through an intuitive interface. This tiered approach balances speed with accuracy, ensuring a smooth checkout experience while maintaining security.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Fraud Detection & Prevention</h3>
+                        <p>The fraud detection algorithm analyzes cross-validation results to identify potential theft or product swapping. The system's remarkably low false positive rate of just 0.7% prevents legitimate customers from being falsely flagged. When suspicious activity is detected, staff are alerted with specific information about the transaction, and can override or confirm the system's decision. This balanced approach to security maintains a positive customer experience while effectively preventing losses.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Continuous Learning System</h3>
+                        <p>The product recognition system implements a continuous learning loop that constantly improves its accuracy. When incorrect identifications occur, whether detected by the user or staff, the system captures this feedback for model improvement. The extensive product database contains over 50,000 product images, weight profiles, and visual signatures, and is regularly updated with new products and variations. Transaction data feeds back into customer purchase history, enabling the system to recognize patterns in individual shopping behavior and improve prediction accuracy over time.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Performance & Efficiency</h3>
+                        <p>The AI/ML system achieves impressive performance metrics that directly enhance the checkout experience. With recognition speeds of just 0.3-0.5 seconds per item, the system processes items much faster than traditional barcode scanning. The overall accuracy rate of 96.8% ensures reliable operation across a wide range of products, with exceptional accuracy for packaged goods (99.9%) and strong performance even with challenging items like produce (94.3%). These performance characteristics enable a significantly faster and more convenient checkout process compared to traditional methods.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons" data-aos="fade-up">
+                <a href="16_checkout_kiosk_design.html" class="nav-button prev">
+                    <i class="fas fa-chevron-left"></i> Checkout Kiosk Design
+                </a>
+                <a href="../index.html" class="nav-button next">
+                    Back to Home <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 NeuroNexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Mermaid with specific settings for better rendering
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            logLevel: 'error'
+        });
+
+        // Function to check if an element is visible in the viewport
+        function isElementVisible(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Allow some time for mermaid to render first
+            let attempts = 0;
+            const maxAttempts = 10;
+            const checkInterval = 500; // Check every 500ms
+            
+            function initPanzoom() {
+                const mermaidDiv = document.querySelector('.mermaid');
+                const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
+                
+                if (diagramSvg && isElementVisible(diagramSvg)) {
+                    console.log("Mermaid diagram rendered successfully!");
+                    
+                    // Make sure the SVG is fully visible
+                    diagramSvg.style.display = 'block';
+                    diagramSvg.style.width = '100%';
+                    diagramSvg.style.height = '100%';
+                    diagramSvg.style.minWidth = '100%';
+                    diagramSvg.style.minHeight = '100%';
+                    
+                    // Initialize Panzoom on the diagram element
+                    const element = document.getElementById('diagram-element');
+                    
+                    if (element && typeof Panzoom === 'function') {
+                        try {
+                            // Initialize Panzoom with optimized settings
+                            const panzoom = Panzoom(element, {
+                                maxScale: 5,
+                                minScale: 0.5,
+                                contain: 'outside',
+                                excludeClass: 'zoom-controls',
+                                canvas: true
+                            });
+                            
+                            // Set the cursor style
+                            element.style.cursor = 'grab';
+                            
+                            // Enable mouse wheel zooming
+                            element.addEventListener('wheel', function(e) {
+                                e.preventDefault();
+                                const delta = e.deltaY;
+                                
+                                if (delta > 0) {
+                                    panzoom.zoomOut(0.2, {
+                                        animate: false
+                                    });
+                                } else {
+                                    panzoom.zoomIn(0.2, {
+                                        animate: false
+                                    });
+                                }
+                            });
+                            
+                            // Change cursor when dragging
+                            element.addEventListener('mousedown', function() {
+                                this.style.cursor = 'grabbing';
+                            });
+                            
+                            element.addEventListener('mouseup', function() {
+                                this.style.cursor = 'grab';
+                            });
+                            
+                            // Connect zoom control buttons
+                            document.getElementById('zoom-in').addEventListener('click', function() {
+                                panzoom.zoomIn(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('zoom-out').addEventListener('click', function() {
+                                panzoom.zoomOut(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('reset-zoom').addEventListener('click', function() {
+                                panzoom.reset({ animate: true });
+                            });
+                            
+                            // Prevent text selection when dragging
+                            element.addEventListener('selectstart', function(e) {
+                                e.preventDefault();
+                                return false;
+                            });
+                            
+                            console.log("Panzoom initialized successfully");
+                        } catch (error) {
+                            console.error("Panzoom initialization error:", error);
+                        }
+                    } else {
+                        console.warn("Diagram element not found or Panzoom not available");
+                    }
+                } else {
+                    // Try again if we haven't exceeded max attempts
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
+                        setTimeout(initPanzoom, checkInterval);
+                    } else {
+                        console.error("Failed to find rendered Mermaid diagram after multiple attempts");
+                        alert("There was a problem rendering the diagram. Please refresh the page to try again.");
+                    }
+                }
+            }
+            
+            // Start checking for diagram rendering
+            setTimeout(initPanzoom, 500);
+        });
+    </script>
+</body>
+</html> 

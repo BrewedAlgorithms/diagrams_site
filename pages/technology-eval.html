@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technology Evaluation - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research" class="active">Research</a>
+            <a href="../index.html#technology">Technology</a>
+            <a href="../index.html#about">About Us</a>
+        </div>
+    </nav>
+    
+    <div class="research-content">
+        <h1 data-aos="fade-up">Technology Evaluation</h1>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Overview</h2>
+            <p>Our technology evaluation research focused on identifying and assessing the most promising technologies for implementation in our NeuroNexus. We conducted comprehensive evaluations of computer vision systems, biometric authentication methods, payment processing technologies, and edge computing solutions to determine the optimal combination for our system.</p>
+            
+            <div class="highlight-box">
+                <i class="fas fa-microchip"></i>
+                <div>
+                    <h3>Key Insight</h3>
+                    <p>The combination of multi-modal biometrics with distributed edge computing offers the best balance of security, speed, and offline capability for smart checkout systems.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Key Findings</h2>
+            
+            <div class="tech-category" data-aos="fade-up">
+                <h3><i class="fas fa-camera"></i> Computer Vision Systems</h3>
+                
+                <div class="tech-comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Technology</th>
+                                <th>Recognition Accuracy</th>
+                                <th>Processing Speed</th>
+                                <th>Hardware Requirements</th>
+                                <th>Suitability Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TensorFlow-based CV</td>
+                                <td>92%</td>
+                                <td>220ms</td>
+                                <td>Medium</td>
+                                <td>7.8/10</td>
+                            </tr>
+                            <tr>
+                                <td>NVIDIA DeepStream</td>
+                                <td>94%</td>
+                                <td>180ms</td>
+                                <td>High</td>
+                                <td>8.2/10</td>
+                            </tr>
+                            <tr class="highlighted-row">
+                                <td>Intel OpenVINO</td>
+                                <td>91%</td>
+                                <td>150ms</td>
+                                <td>Low-Medium</td>
+                                <td>8.7/10</td>
+                            </tr>
+                            <tr>
+                                <td>Custom PyTorch Solution</td>
+                                <td>95%</td>
+                                <td>240ms</td>
+                                <td>High</td>
+                                <td>7.5/10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="finding-details">
+                    <p>Our evaluation of computer vision systems revealed that Intel OpenVINO offers the best combination of accuracy, speed, and hardware efficiency. While other solutions provided marginally better recognition rates, the processing speed and lower hardware requirements of OpenVINO make it more suitable for widespread deployment across diverse retail environments.</p>
+                </div>
+            </div>
+            
+            <div class="tech-category" data-aos="fade-up">
+                <h3><i class="fas fa-fingerprint"></i> Biometric Authentication</h3>
+                
+                <div class="tech-comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Technology</th>
+                                <th>Accuracy</th>
+                                <th>User Acceptance</th>
+                                <th>Implementation Complexity</th>
+                                <th>Suitability Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Facial Recognition</td>
+                                <td>88%</td>
+                                <td>65%</td>
+                                <td>Medium</td>
+                                <td>7.2/10</td>
+                            </tr>
+                            <tr>
+                                <td>Fingerprint Scanning</td>
+                                <td>96%</td>
+                                <td>72%</td>
+                                <td>Low</td>
+                                <td>8.1/10</td>
+                            </tr>
+                            <tr>
+                                <td>Palm Vein Recognition</td>
+                                <td>97%</td>
+                                <td>68%</td>
+                                <td>Medium-High</td>
+                                <td>7.8/10</td>
+                            </tr>
+                            <tr class="highlighted-row">
+                                <td>Multi-Modal Hybrid</td>
+                                <td>99%</td>
+                                <td>78%</td>
+                                <td>High</td>
+                                <td>9.3/10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="finding-details">
+                    <p>Our assessment of biometric authentication methods found that a multi-modal approach combining facial recognition with either fingerprint or palm vein scanning provides the highest accuracy and user acceptance rates. This hybrid approach offers users flexibility in authentication methods while maintaining extremely high security standards.</p>
+                </div>
+            </div>
+            
+            <div class="tech-category" data-aos="fade-up">
+                <h3><i class="fas fa-credit-card"></i> Payment Processing</h3>
+                
+                <div class="tech-comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Technology</th>
+                                <th>Processing Speed</th>
+                                <th>Transaction Fees</th>
+                                <th>Integration Complexity</th>
+                                <th>Suitability Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Traditional POS Integration</td>
+                                <td>1.2s</td>
+                                <td>2.5-3.5%</td>
+                                <td>Low</td>
+                                <td>6.8/10</td>
+                            </tr>
+                            <tr>
+                                <td>Mobile Wallet API</td>
+                                <td>0.8s</td>
+                                <td>1.5-2.8%</td>
+                                <td>Medium</td>
+                                <td>8.0/10</td>
+                            </tr>
+                            <tr class="highlighted-row">
+                                <td>Unified Payment Gateway</td>
+                                <td>0.5s</td>
+                                <td>1.8-2.2%</td>
+                                <td>Medium-High</td>
+                                <td>8.9/10</td>
+                            </tr>
+                            <tr>
+                                <td>Blockchain-based Solution</td>
+                                <td>3.5s</td>
+                                <td>0.5-1.0%</td>
+                                <td>Very High</td>
+                                <td>5.4/10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="finding-details">
+                    <p>Our evaluation of payment processing technologies determined that a unified payment gateway approach offers the best balance of speed, cost, and integration complexity. While blockchain-based solutions offer lower transaction fees, their slower processing times and complex implementation requirements make them less suitable for retail checkout environments where speed is critical.</p>
+                </div>
+            </div>
+            
+            <div class="tech-category" data-aos="fade-up">
+                <h3><i class="fas fa-network-wired"></i> Edge Computing Architecture</h3>
+                
+                <div class="tech-comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Architecture</th>
+                                <th>Latency</th>
+                                <th>Offline Capability</th>
+                                <th>Implementation Cost</th>
+                                <th>Suitability Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cloud-Dependent</td>
+                                <td>100-300ms</td>
+                                <td>None</td>
+                                <td>Low</td>
+                                <td>5.5/10</td>
+                            </tr>
+                            <tr>
+                                <td>Hybrid Cloud-Edge</td>
+                                <td>50-150ms</td>
+                                <td>Limited</td>
+                                <td>Medium</td>
+                                <td>7.8/10</td>
+                            </tr>
+                            <tr class="highlighted-row">
+                                <td>Distributed Edge</td>
+                                <td>10-40ms</td>
+                                <td>Complete</td>
+                                <td>High</td>
+                                <td>9.1/10</td>
+                            </tr>
+                            <tr>
+                                <td>Centralized Edge</td>
+                                <td>20-60ms</td>
+                                <td>Partial</td>
+                                <td>Medium-High</td>
+                                <td>8.0/10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="finding-details">
+                    <p>Our evaluation of edge computing architectures revealed that a distributed edge approach, while more expensive to implement, provides the best performance in terms of latency and offline capability. This architecture allows each checkout terminal to function independently even during network outages, ensuring business continuity while maintaining fast processing times.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Technology Readiness Assessment</h2>
+            <p>We assessed the maturity of each key technology component using the Technology Readiness Level (TRL) framework:</p>
+            
+            <div class="chart-container" data-aos="fade-up">
+                <h3>Technology Readiness Levels</h3>
+                <canvas id="trlChart"></canvas>
+            </div>
+            
+            <div class="trl-legend">
+                <div class="trl-item trl-low">
+                    <span class="trl-dot"></span>
+                    <div class="trl-desc">
+                        <strong>TRL 1-3:</strong> Research and concept development phase
+                    </div>
+                </div>
+                <div class="trl-item trl-medium">
+                    <span class="trl-dot"></span>
+                    <div class="trl-desc">
+                        <strong>TRL 4-6:</strong> Technology development and validation phase
+                    </div>
+                </div>
+                <div class="trl-item trl-high">
+                    <span class="trl-dot"></span>
+                    <div class="trl-desc">
+                        <strong>TRL 7-9:</strong> System development and deployment phase
+                    </div>
+                </div>
+            </div>
+            
+            <p>The readiness assessment indicates that most of the key technologies required for our NeuroNexus are at a mature stage (TRL 7-9), enabling near-term implementation. Some aspects of the multi-modal biometric system and distributed edge architecture are still evolving (TRL 5-6) but are expected to reach maturity within our development timeline.</p>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Methodology</h2>
+            <p>Our technology evaluation involved multiple complementary approaches:</p>
+            
+            <div class="methodology-grid">
+                <div class="methodology-item">
+                    <div class="methodology-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="methodology-content">
+                        <h3>Proof-of-Concept Development</h3>
+                        <p>We built working prototypes of key system components using different technology stacks to compare real-world performance.</p>
+                    </div>
+                </div>
+                
+                <div class="methodology-item">
+                    <div class="methodology-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="methodology-content">
+                        <h3>Controlled Environment Testing</h3>
+                        <p>We conducted standardized tests in a simulated retail environment to measure performance under various conditions.</p>
+                    </div>
+                </div>
+                
+                <div class="methodology-item">
+                    <div class="methodology-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <div class="methodology-content">
+                        <h3>Expert Consultations</h3>
+                        <p>We analyzed recommendations from leading technology experts through published papers and reports focused on computer vision, biometrics, and edge computing implementation challenges.</p>
+                    </div>
+                </div>
+                
+                <div class="methodology-item">
+                    <div class="methodology-icon">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <div class="methodology-content">
+                        <h3>Literature Review</h3>
+                        <p>We analyzed 45+ academic papers and industry reports on emerging technologies in retail automation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Integration Architecture</h2>
+            <p>Based on our technology evaluation, we developed a preliminary integration architecture for the NeuroNexus:</p>
+            
+            <div class="mermaid-diagram" data-aos="fade-up">
+                <div class="mermaid">
+graph TD
+    A[Edge Device] -->|Real-time Processing| B[Computer Vision Module]
+    A -->|Authentication| C[Biometric Module]
+    A -->|Transaction| D[Payment Module]
+    B -->|Product Recognition| E[Edge Computing Layer]
+    C -->|Identity Verification| E
+    D -->|Payment Processing| E
+    E -->|Offline Capability| F[Local Data Storage]
+    E -->|When Online| G[Cloud Synchronization]
+    F -.->|Sync When Available| G
+    G -->|Analytics & Reporting| H[Retail Management System]
+    
+    classDef primary fill:#3498db,stroke:#2980b9,color:white;
+    classDef secondary fill:#2ecc71,stroke:#27ae60,color:white;
+    classDef tertiary fill:#f1c40f,stroke:#f39c12,color:white;
+    
+    class A,E primary;
+    class B,C,D tertiary;
+    class F,G,H secondary;
+                </div>
+            </div>
+            
+            <div class="integration-notes">
+                <p>Key aspects of the integration architecture include:</p>
+                <ul>
+                    <li><strong>Modular Design:</strong> Each component (computer vision, biometrics, payment) operates independently but integrates through a unified edge computing layer.</li>
+                    <li><strong>Offline-First Approach:</strong> All critical processing occurs on the edge device with local data storage, ensuring the system functions without internet connectivity.</li>
+                    <li><strong>Synchronization Strategy:</strong> Data synchronizes with cloud systems when connectivity is available, enabling centralized analytics and reporting.</li>
+                    <li><strong>Fault Tolerance:</strong> Multiple redundancy mechanisms ensure system availability even if individual components fail.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Conclusions</h2>
+            <p>Our technology evaluation led to several key conclusions that will guide our development approach:</p>
+            
+            <ul class="conclusions-list">
+                <li><strong>Edge-First Architecture is Essential</strong> - The reliability and performance requirements of retail checkout necessitate a robust edge computing implementation rather than cloud-dependent solutions.</li>
+                <li><strong>Multi-Modal Biometrics Offers Best Security-Usability Balance</strong> - Combining facial recognition with fingerprint/palm scanning provides both high security and user acceptance.</li>
+                <li><strong>Performance Optimization Crucial</strong> - The differences in user experience between 150ms and 500ms response times are significant in checkout scenarios, making optimization vital.</li>
+                <li><strong>Unified Payment Gateway Simplifies Integration</strong> - A single payment gateway that supports multiple payment methods reduces complexity while maintaining speed.</li>
+                <li><strong>Hardware Requirements Must Be Balanced</strong> - Solutions that minimize hardware costs while maintaining performance are preferred for wide-scale deployment.</li>
+            </ul>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Recommendations</h2>
+            <p>Based on our technology evaluation, we recommend the following technical approach for the NeuroNexus:</p>
+            
+            <div class="recommendations-grid">
+                <div class="recommendation-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Hardware Platform</h3>
+                    <p>Deploy Intel NUC or equivalent edge computing devices with integrated GPUs at each checkout location to support local processing requirements.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-camera"></i>
+                    <h3>Computer Vision</h3>
+                    <p>Implement Intel OpenVINO-based computer vision with custom-trained models optimized for retail product recognition.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-fingerprint"></i>
+                    <h3>Biometric Authentication</h3>
+                    <p>Utilize a multi-modal approach combining facial recognition (primary) with fingerprint scanning (secondary), giving users choice in authentication method.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Payment Processing</h3>
+                    <p>Implement a unified payment gateway that supports credit/debit cards, mobile wallets, and store loyalty programs through a single integration.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>System Architecture</h3>
+                    <p>Utilize a distributed edge computing architecture with local databases for offline operation and periodic cloud synchronization.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Security Framework</h3>
+                    <p>Implement end-to-end encryption with hardware security modules (HSMs) for biometric template and payment data protection.</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="navigation-buttons">
+            <a href="user-needs.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous: User Needs
+            </a>
+            <a href="security-research.html" class="nav-button next">
+                Next: Security Research <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+                <a href="../index.html#technology">Technology</a>
+                <a href="../index.html#about">About Us</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2023 NeuroNexus. NeuroNexus. All diagrams created with Mermaid.js
+        </div>
+    </footer>
+    
+    <script src="../js/main.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Initialize Mermaid diagrams
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+        
+        // Technology Readiness Level Chart
+        const trlCtx = document.getElementById('trlChart').getContext('2d');
+        const trlChart = new Chart(trlCtx, {
+            type: 'radar',
+            data: {
+                labels: [
+                    'Computer Vision (Object Recognition)',
+                    'Biometric Authentication',
+                    'Payment Processing',
+                    'Edge Computing',
+                    'System Integration',
+                    'Security Framework',
+                    'Offline Capability'
+                ],
+                datasets: [{
+                    label: 'Technology Readiness Level (1-9)',
+                    data: [8, 7, 9, 6, 7, 8, 6],
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    borderColor: 'rgb(52, 152, 219)',
+                    pointBackgroundColor: 'rgb(52, 152, 219)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(52, 152, 219)',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 9,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.raw;
+                                let readinessLevel = '';
+                                
+                                if (value >= 7) {
+                                    readinessLevel = 'High (System Development & Deployment)';
+                                } else if (value >= 4) {
+                                    readinessLevel = 'Medium (Technology Development)';
+                                } else {
+                                    readinessLevel = 'Low (Research Phase)';
+                                }
+                                
+                                return `TRL: ${value}/9 - ${readinessLevel}`;
+                            }
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+    <style>
+        /* Technology Evaluation page specific styles */
+        .research-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .research-section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        
+        .research-section:last-child {
+            border-bottom: none;
+        }
+        
+        .highlight-box {
+            display: flex;
+            align-items: center;
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-box i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-right: 1.5rem;
+        }
+        
+        .highlight-box h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+        
+        .tech-category {
+            margin-bottom: 2.5rem;
+        }
+        
+        .tech-category h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tech-category h3 i {
+            margin-right: 0.75rem;
+            color: var(--primary-color);
+        }
+        
+        .tech-comparison-table {
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: left;
+            padding: 0.75rem 1rem;
+        }
+        
+        .tech-comparison-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        
+        .tech-comparison-table tr:nth-child(even) {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        
+        .tech-comparison-table .highlighted-row {
+            background-color: rgba(46, 204, 113, 0.1);
+            font-weight: 600;
+        }
+        
+        .finding-details {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .finding-details p {
+            margin-bottom: 0;
+        }
+        
+        .chart-container {
+            height: 400px;
+            margin: 2rem 0;
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .chart-container h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .trl-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            justify-content: center;
+        }
+        
+        .trl-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+        }
+        
+        .trl-low {
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+        
+        .trl-medium {
+            background-color: rgba(241, 196, 15, 0.1);
+        }
+        
+        .trl-high {
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+        
+        .trl-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+        }
+        
+        .trl-low .trl-dot {
+            background-color: rgba(231, 76, 60, 0.8);
+        }
+        
+        .trl-medium .trl-dot {
+            background-color: rgba(241, 196, 15, 0.8);
+        }
+        
+        .trl-high .trl-dot {
+            background-color: rgba(46, 204, 113, 0.8);
+        }
+        
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .methodology-item {
+            display: flex;
+            align-items: flex-start;
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .methodology-icon {
+            flex: 0 0 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            margin-right: 1rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .methodology-content h3 {
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .methodology-content p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0;
+        }
+        
+        .mermaid-diagram {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+        
+        .integration-notes {
+            background-color: rgba(52, 152, 219, 0.05);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-top: 1.5rem;
+        }
+        
+        .integration-notes ul {
+            margin-bottom: 0;
+        }
+        
+        .integration-notes li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .integration-notes li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .conclusions-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .conclusions-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: rgba(52, 152, 219, 0.05);
+            border-left: 3px solid var(--primary-color);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .recommendation-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+        
+        .recommendation-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .recommendation-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .methodology-grid, 
+            .recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .highlight-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .highlight-box i {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .trl-legend {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</body>
+</html> 

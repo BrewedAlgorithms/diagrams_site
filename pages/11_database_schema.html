@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Schema - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            height: 700px;
+            width: 100%;
+        }
+        #diagram-element {
+            transform-origin: 0 0;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .zoom-controls button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .zoom-controls button:hover {
+            background: var(--primary-color);
+        }
+        .mermaid {
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+        .mermaid svg {
+            touch-action: none;
+            width: 100%;
+            height: 100%;
+            display: block !important;
+            min-width: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../index.html#technology">Technology</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <div class="page-content">
+            <h1 class="section-title" data-aos="fade-up">Database Schema</h1>
+            
+            <div class="diagram-explanation" data-aos="fade-up">
+                <p>This diagram illustrates the database schema for the NeuroNexus, showing the key tables and relationships. The schema is designed to support all system functionality while ensuring data integrity, security, and performance.</p>
+            </div>
+            
+            <div class="diagram-container" data-aos="fade-up">
+                <div class="zoom-controls">
+                    <button id="zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                    <button id="reset-zoom" title="Reset Zoom"><i class="fas fa-home"></i></button>
+                </div>
+                <div id="diagram-element">
+                    <div class="mermaid">
+                    erDiagram
+                        USERS {
+                            int user_id PK
+                            string name
+                            string email
+                            datetime created_at
+                            string profile_image
+                            bool biometric_enabled
+                        }
+                        
+                        BIOMETRIC_TEMPLATES {
+                            int template_id PK
+                            int user_id FK
+                            blob encrypted_template
+                            datetime created_at
+                            datetime last_updated
+                            bool is_active
+                        }
+                        
+                        PAYMENT_METHODS {
+                            int payment_method_id PK
+                            int user_id FK
+                            string payment_type
+                            string token
+                            string label
+                            datetime added_on
+                            bool is_default
+                        }
+                        
+                        PRODUCTS {
+                            int product_id PK
+                            string name
+                            float price
+                            string category
+                            string rfid_tag
+                            string description
+                            string image_url
+                            int inventory_count
+                        }
+                        
+                        TRANSACTIONS {
+                            int transaction_id PK
+                            int user_id FK
+                            datetime timestamp
+                            float total_amount
+                            string payment_method
+                            string status
+                            bool is_offline
+                            string receipt_url
+                        }
+                        
+                        TRANSACTION_ITEMS {
+                            int item_id PK
+                            int transaction_id FK
+                            int product_id FK
+                            int quantity
+                            float unit_price
+                            float total_price
+                            float discount
+                        }
+                        
+                        STORES {
+                            int store_id PK
+                            string name
+                            string location
+                            string contact_info
+                        }
+                        
+                        TERMINALS {
+                            int terminal_id PK
+                            int store_id FK
+                            string status
+                            datetime last_connection
+                            string firmware_version
+                        }
+                        
+                        OFFLINE_TRANSACTIONS {
+                            int offline_id PK
+                            int terminal_id FK
+                            json transaction_data
+                            string crypto_proof
+                            datetime created_at
+                            bool is_synced
+                            datetime synced_at
+                        }
+                        
+                        USERS ||--o{ BIOMETRIC_TEMPLATES : has
+                        USERS ||--o{ PAYMENT_METHODS : has
+                        USERS ||--o{ TRANSACTIONS : makes
+                        TRANSACTIONS ||--|{ TRANSACTION_ITEMS : contains
+                        TRANSACTION_ITEMS }o--|| PRODUCTS : references
+                        STORES ||--o{ TERMINALS : has
+                        TERMINALS ||--o{ OFFLINE_TRANSACTIONS : stores
+                        
+                        style USERS fill:#bbdefb,stroke:#1976d2
+                        style BIOMETRIC_TEMPLATES fill:#e1bee7,stroke:#8e24aa
+                        style PAYMENT_METHODS fill:#ffe0b2,stroke:#f57c00
+                        style PRODUCTS fill:#c8e6c9,stroke:#388e3c
+                        style TRANSACTIONS fill:#ffcdd2,stroke:#e53935
+                        style TRANSACTION_ITEMS fill:#ffccbc,stroke:#e64a19
+                        style STORES fill:#b3e5fc,stroke:#0288d1
+                        style TERMINALS fill:#d1c4e9,stroke:#5e35b1
+                        style OFFLINE_TRANSACTIONS fill:#fff9c4,stroke:#fbc02d
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-explanation" data-aos="fade-up">
+                <h2>Database Structure & Relationships</h2>
+                <p>The NeuroNexus's database is designed to efficiently store and manage all data needed for checkout operations:</p>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>User Data Management</h3>
+                        <p>The database starts with the <strong>USERS</strong> table as a central entity that stores essential customer information while keeping personally identifiable data to a minimum. This table links to specialized tables for secure data: <strong>BIOMETRIC_TEMPLATES</strong> stores encrypted fingerprint templates with no raw biometric data, and <strong>PAYMENT_METHODS</strong> stores tokenized payment information rather than actual card details. This separation ensures that sensitive user data is compartmentalized and protected according to privacy best practices.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-basket"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Product & Transaction Management</h3>
+                        <p>The <strong>PRODUCTS</strong> table stores all item details including RFID tags and inventory information. The <strong>TRANSACTIONS</strong> table records high-level transaction data such as totals and payment methods, while the <strong>TRANSACTION_ITEMS</strong> junction table maintains the line-item details for each transaction. This structure enables efficient querying for both transaction history and inventory management, with the ability to track individual products across multiple transactions.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Store & Terminal Management</h3>
+                        <p>The <strong>STORES</strong> table represents physical retail locations, while the <strong>TERMINALS</strong> table tracks all checkout terminals in the system. This hierarchy supports multi-store deployments and enables location-specific configurations and reporting. Each terminal maintains its own status information and connection history, allowing for centralized monitoring and management of the entire terminal fleet across multiple store locations.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-wifi-slash"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Offline Transaction Support</h3>
+                        <p>The <strong>OFFLINE_TRANSACTIONS</strong> table is specifically designed to support the system's offline operation capability. It stores complete transaction data with cryptographic proofs when terminals operate without network connectivity. The synchronization status flags track which transactions have been successfully uploaded to the central database after connectivity is restored. This design ensures business continuity during network outages while maintaining data integrity.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Key Relationships & Data Integrity</h3>
+                        <p>The database implements several critical relationships to maintain data integrity: a user can have multiple biometric templates and payment methods; a transaction belongs to one user but contains multiple line items; each transaction item references one product; stores have multiple terminals; and terminals can store multiple offline transactions. These relationships are enforced through foreign key constraints that prevent orphaned records and ensure referential integrity throughout the database.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons" data-aos="fade-up">
+                <a href="10_offline_mode_workflow.html" class="nav-button prev">
+                    <i class="fas fa-chevron-left"></i> Offline Mode Workflow
+                </a>
+                <a href="15_error_handling.html" class="nav-button next">
+                    Error Handling <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 NeuroNexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Mermaid with specific settings for better rendering
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            er: {
+                diagramPadding: 20,
+                layoutDirection: 'TB',
+                minEntityWidth: 100,
+                minEntityHeight: 75,
+                entityPadding: 15
+            },
+            logLevel: 'error'
+        });
+
+        // Function to check if an element is visible in the viewport
+        function isElementVisible(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Allow some time for mermaid to render first
+            let attempts = 0;
+            const maxAttempts = 10;
+            const checkInterval = 500; // Check every 500ms
+            
+            function initPanzoom() {
+                const mermaidDiv = document.querySelector('.mermaid');
+                const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
+                
+                if (diagramSvg && isElementVisible(diagramSvg)) {
+                    console.log("Mermaid diagram rendered successfully!");
+                    
+                    // Make sure the SVG is fully visible
+                    diagramSvg.style.display = 'block';
+                    diagramSvg.style.width = '100%';
+                    diagramSvg.style.height = '100%';
+                    diagramSvg.style.minWidth = '100%';
+                    diagramSvg.style.minHeight = '100%';
+                    
+                    // Initialize Panzoom on the diagram element
+                    const element = document.getElementById('diagram-element');
+                    
+                    if (element && typeof Panzoom === 'function') {
+                        try {
+                            // Initialize Panzoom with optimized settings
+                            const panzoom = Panzoom(element, {
+                                maxScale: 5,
+                                minScale: 0.5,
+                                contain: 'outside',
+                                excludeClass: 'zoom-controls',
+                                canvas: true
+                            });
+                            
+                            // Set the cursor style
+                            element.style.cursor = 'grab';
+                            
+                            // Enable mouse wheel zooming
+                            element.addEventListener('wheel', function(e) {
+                                e.preventDefault();
+                                const delta = e.deltaY;
+                                
+                                if (delta > 0) {
+                                    panzoom.zoomOut(0.2, {
+                                        animate: false
+                                    });
+                                } else {
+                                    panzoom.zoomIn(0.2, {
+                                        animate: false
+                                    });
+                                }
+                            });
+                            
+                            // Change cursor when dragging
+                            element.addEventListener('mousedown', function() {
+                                this.style.cursor = 'grabbing';
+                            });
+                            
+                            element.addEventListener('mouseup', function() {
+                                this.style.cursor = 'grab';
+                            });
+                            
+                            // Connect zoom control buttons
+                            document.getElementById('zoom-in').addEventListener('click', function() {
+                                panzoom.zoomIn(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('zoom-out').addEventListener('click', function() {
+                                panzoom.zoomOut(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('reset-zoom').addEventListener('click', function() {
+                                panzoom.reset({ animate: true });
+                            });
+                            
+                            // Prevent text selection when dragging
+                            element.addEventListener('selectstart', function(e) {
+                                e.preventDefault();
+                                return false;
+                            });
+                            
+                            console.log("Panzoom initialized successfully");
+                        } catch (error) {
+                            console.error("Panzoom initialization error:", error);
+                        }
+                    } else {
+                        console.warn("Diagram element not found or Panzoom not available");
+                    }
+                } else {
+                    // Try again if we haven't exceeded max attempts
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
+                        setTimeout(initPanzoom, checkInterval);
+                    } else {
+                        console.error("Failed to find rendered Mermaid diagram after multiple attempts");
+                        alert("There was a problem rendering the diagram. Please refresh the page to try again.");
+                    }
+                }
+            }
+            
+            // Start checking for diagram rendering
+            setTimeout(initPanzoom, 500);
+        });
+    </script>
+</body>
+</html> 

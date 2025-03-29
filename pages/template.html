@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIAGRAM_TITLE - NeuroNexus - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#diagrams" class="active">Diagrams</a>
+            <a href="../index.html#about">About</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <h1 data-aos="fade-up">DIAGRAM_TITLE</h1>
+        
+        <div class="diagram-explanation" data-aos="fade-up">
+            <p>DIAGRAM_DESCRIPTION</p>
+        </div>
+        
+        <div class="diagram-container" data-aos="fade-up">
+            <pre class="mermaid">
+                DIAGRAM_CODE
+            </pre>
+        </div>
+        
+        <div class="diagram-explanation" data-aos="fade-up">
+            <h2>Detailed Explanation</h2>
+            <p>DETAILED_EXPLANATION</p>
+            <br>
+            <h3>Key Components</h3>
+            <ul>
+                <li><strong>COMPONENT_1:</strong> COMPONENT_1_DESCRIPTION</li>
+                <li><strong>COMPONENT_2:</strong> COMPONENT_2_DESCRIPTION</li>
+                <li><strong>COMPONENT_3:</strong> COMPONENT_3_DESCRIPTION</li>
+                <!-- Add more components as needed -->
+            </ul>
+            
+            <h3>How It Works</h3>
+            <p>HOW_IT_WORKS</p>
+        </div>
+        
+        <div class="navigation-buttons">
+            <a href="PREV_DIAGRAM.html" class="nav-button prev">
+                <i class="fas fa-arrow-left"></i> Previous Diagram
+            </a>
+            <a href="../index.html#diagrams" class="nav-button">
+                <i class="fas fa-th-large"></i> All Diagrams
+            </a>
+            <a href="NEXT_DIAGRAM.html" class="nav-button next">
+                Next Diagram <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#about">About</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2023 NeuroNexus. All diagrams created with Mermaid.js
+        </div>
+    </footer>
+    
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Diagram - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            height: 700px;
+            width: 100%;
+        }
+        #diagram-element {
+            transform-origin: 0 0;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .zoom-controls button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .zoom-controls button:hover {
+            background: var(--primary-color);
+        }
+        .mermaid {
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+        .mermaid svg {
+            touch-action: none;
+            width: 100%;
+            height: 100%;
+            display: block !important;
+            min-width: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../index.html#technology">Technology</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <div class="page-content">
+            <h1 class="section-title" data-aos="fade-up">Class Diagram</h1>
+            
+            <div class="diagram-explanation" data-aos="fade-up">
+                <p>This class diagram illustrates the key classes and their relationships in the NeuroNexus, focusing on the core functionality and business logic. It defines the object-oriented structure that will support all system operations from product scanning to payment processing.</p>
+            </div>
+            
+            <div class="diagram-container" data-aos="fade-up">
+                <div class="zoom-controls">
+                    <button id="zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                    <button id="reset-zoom" title="Reset Zoom"><i class="fas fa-home"></i></button>
+                </div>
+                <div id="diagram-element">
+                    <div class="mermaid">
+                    classDiagram
+                        %% Core Classes
+                        class CheckoutTerminal {
+                            -terminalId: String
+                            -storeId: String
+                            -status: TerminalStatus
+                            +initialize(): void
+                            +scanItems(): List~Product~
+                            +processPayment(method: PaymentMethod): Transaction
+                            +generateReceipt(format: ReceiptFormat): Receipt
+                            +shutdown(): void
+                        }
+                        
+                        class RFIDReader {
+                            -readerId: String
+                            -scanPower: int
+                            -status: ReaderStatus
+                            +scan(): List~RFIDTag~
+                            +filterDuplicates(tags: List~RFIDTag~): List~RFIDTag~
+                            +mapToProducts(tags: List~RFIDTag~): List~Product~
+                            +calibrate(): bool
+                        }
+                        
+                        class BiometricScanner {
+                            -scannerId: String
+                            -scannerType: ScannerType
+                            -securityLevel: int
+                            +captureSample(): BiometricSample
+                            +extractFeatures(sample: BiometricSample): FeatureSet
+                            +match(features: FeatureSet, template: BiometricTemplate): float
+                            +verifyLiveness(sample: BiometricSample): bool
+                        }
+                        
+                        class NFCReader {
+                            -readerId: String
+                            -supportedProtocols: List~String~
+                            +detectDevice(): NFCDevice
+                            +establishSecureChannel(device: NFCDevice): SecureChannel
+                            +receivePaymentData(channel: SecureChannel): PaymentData
+                            +verifyNFCTransaction(data: PaymentData): bool
+                        }
+                        
+                        %% Data Classes
+                        class Product {
+                            -productId: String
+                            -name: String
+                            -price: float
+                            -rfidTag: String
+                            -category: String
+                            -weight: float
+                            +getDisplayInfo(): ProductDisplay
+                            +applyDiscount(percent: float): float
+                        }
+                        
+                        class Transaction {
+                            -transactionId: String
+                            -timestamp: DateTime
+                            -items: List~Product~
+                            -totalAmount: float
+                            -paymentMethod: PaymentMethod
+                            -status: TransactionStatus
+                            +calculateTotal(): float
+                            +addItem(product: Product): void
+                            +removeItem(product: Product): void
+                            +complete(): bool
+                            +void(): bool
+                        }
+                        
+                        class User {
+                            -userId: String
+                            -name: String
+                            -email: String
+                            -registrationDate: DateTime
+                            -preferences: UserPreferences
+                            +registerBiometric(template: BiometricTemplate): bool
+                            +getPaymentMethods(): List~PaymentMethod~
+                            +updateProfile(profile: UserProfile): bool
+                        }
+                        
+                        %% Payment Classes
+                        class PaymentProcessor {
+                            -processorId: String
+                            -supportedMethods: List~PaymentMethod~
+                            -gatewayUrl: String
+                            +processPayment(transaction: Transaction): PaymentResult
+                            +tokenizePaymentData(data: PaymentData): PaymentToken
+                            +validateTransaction(transaction: Transaction): bool
+                            +handleOfflinePayment(transaction: Transaction): bool
+                        }
+                        
+                        class BiometricPayment {
+                            -userId: String
+                            -biometricTemplateId: String
+                            -linkedAccountToken: String
+                            +authenticate(features: FeatureSet): bool
+                            +retrievePaymentToken(): PaymentToken
+                            +authorizePayment(amount: float): bool
+                        }
+                        
+                        class NFCPayment {
+                            -deviceId: String
+                            -tokenId: String
+                            -transactionLimit: float
+                            +verifyDevice(): bool
+                            +generateTransactionToken(): PaymentToken
+                            +checkOfflineCapability(): bool
+                        }
+                        
+                        %% Security Classes
+                        class SecurityManager {
+                            -encryptionKeys: Map~String,Key~
+                            -securityPolicies: SecurityPolicy
+                            +encryptData(data: any): EncryptedData
+                            +decryptData(data: EncryptedData): any
+                            +validateAccess(user: User, resource: Resource): bool
+                            +logSecurityEvent(event: SecurityEvent): void
+                        }
+                        
+                        class BiometricTemplate {
+                            -templateId: String
+                            -features: EncryptedFeatureSet
+                            -creationDate: DateTime
+                            -lastUpdated: DateTime
+                            +compare(features: FeatureSet): float
+                            +update(features: FeatureSet): bool
+                            +invalidate(): void
+                        }
+                        
+                        %% Relationships
+                        CheckoutTerminal "1" *-- "1" RFIDReader : contains
+                        CheckoutTerminal "1" *-- "1" BiometricScanner : contains
+                        CheckoutTerminal "1" *-- "1" NFCReader : contains
+                        CheckoutTerminal "1" --> "0..*" Transaction : processes
+                        CheckoutTerminal "1" --> "1" PaymentProcessor : uses
+                        
+                        RFIDReader "1" --> "0..*" Product : identifies
+                        
+                        BiometricScanner "1" --> "0..*" BiometricTemplate : verifies against
+                        BiometricScanner "1" --> "1" BiometricPayment : authenticates for
+                        
+                        User "1" --> "0..*" Transaction : makes
+                        User "1" --> "0..1" BiometricTemplate : has
+                        
+                        PaymentProcessor "1" --> "0..*" BiometricPayment : handles
+                        PaymentProcessor "1" --> "0..*" NFCPayment : handles
+                        
+                        Transaction "1" --> "1..*" Product : contains
+                        
+                        SecurityManager "1" --> "0..*" BiometricTemplate : protects
+                        SecurityManager "1" --> "0..*" Transaction : secures
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-explanation" data-aos="fade-up">
+                <h2>System Objects & Relationships</h2>
+                <p>The NeuroNexus is built with modular, object-oriented design principles to ensure maintainability, scalability, and security:</p>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Core System Components</h3>
+                        <p>The system is centered around the <strong>CheckoutTerminal</strong> class, which integrates various hardware components including the <strong>RFIDReader</strong> for simultaneous product scanning, the <strong>BiometricScanner</strong> for secure user authentication, and the <strong>NFCReader</strong> for contactless payments. These core classes manage the physical hardware and provide a clean API for the business logic layer to interact with the devices.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Data & Business Objects</h3>
+                        <p>Data is represented through several key classes: <strong>Product</strong> contains all product information including RFID tags and pricing; <strong>Transaction</strong> tracks the complete purchase process from item selection to payment; and <strong>User</strong> manages customer information and preferences. These classes encapsulate both the data and the business logic required to manipulate that data, following object-oriented best practices.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Payment Processing</h3>
+                        <p>The payment subsystem consists of the <strong>PaymentProcessor</strong> class which orchestrates different payment methods, including <strong>BiometricPayment</strong> for fingerprint authentication and <strong>NFCPayment</strong> for mobile device payments. This design allows for easy addition of new payment methods in the future while maintaining a consistent interface for transaction processing. The payment system also supports offline payment capabilities for continued operation during network outages.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Security Architecture</h3>
+                        <p>Security is implemented through the <strong>SecurityManager</strong> class, which handles encryption, access control, and security auditing. Biometric data is stored as encrypted <strong>BiometricTemplate</strong> objects, which can be compared against captured samples without exposing the actual template data. This zero-knowledge proof approach protects sensitive customer information while still enabling secure authentication.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Class Relationships & Dependencies</h3>
+                        <p>The diagram illustrates both composition relationships (where one object owns another) and association relationships (where objects interact but exist independently). For example, the CheckoutTerminal contains hardware readers as integral components, while it merely processes Transactions without owning them. These well-defined relationships help manage system complexity and ensure appropriate separation of concerns across the architecture.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons" data-aos="fade-up">
+                <a href="5_bpmn_process_flow.html" class="nav-button prev">
+                    <i class="fas fa-chevron-left"></i> BPMN Process Flow
+                </a>
+                <a href="7_state_machine.html" class="nav-button next">
+                    State Machine <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 NeuroNexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Mermaid with specific settings for better rendering
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            classdiagram: {
+                diagramPadding: 8,
+                useMaxWidth: false
+            },
+            logLevel: 'error'
+        });
+
+        // Function to check if an element is visible in the viewport
+        function isElementVisible(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Allow some time for mermaid to render first
+            let attempts = 0;
+            const maxAttempts = 10;
+            const checkInterval = 500; // Check every 500ms
+            
+            function initPanzoom() {
+                const mermaidDiv = document.querySelector('.mermaid');
+                const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
+                
+                if (diagramSvg && isElementVisible(diagramSvg)) {
+                    console.log("Mermaid diagram rendered successfully!");
+                    
+                    // Make sure the SVG is fully visible
+                    diagramSvg.style.display = 'block';
+                    diagramSvg.style.width = '100%';
+                    diagramSvg.style.height = '100%';
+                    diagramSvg.style.minWidth = '100%';
+                    diagramSvg.style.minHeight = '100%';
+                    
+                    // Initialize Panzoom on the diagram element
+                    const element = document.getElementById('diagram-element');
+                    
+                    if (element && typeof Panzoom === 'function') {
+                        try {
+                            // Initialize Panzoom with optimized settings
+                            const panzoom = Panzoom(element, {
+                                maxScale: 5,
+                                minScale: 0.5,
+                                contain: 'outside',
+                                excludeClass: 'zoom-controls',
+                                canvas: true
+                            });
+                            
+                            // Set the cursor style
+                            element.style.cursor = 'grab';
+                            
+                            // Enable mouse wheel zooming
+                            element.addEventListener('wheel', function(e) {
+                                e.preventDefault();
+                                const delta = e.deltaY;
+                                
+                                if (delta > 0) {
+                                    panzoom.zoomOut(0.2, {
+                                        animate: false
+                                    });
+                                } else {
+                                    panzoom.zoomIn(0.2, {
+                                        animate: false
+                                    });
+                                }
+                            });
+                            
+                            // Change cursor when dragging
+                            element.addEventListener('mousedown', function() {
+                                this.style.cursor = 'grabbing';
+                            });
+                            
+                            element.addEventListener('mouseup', function() {
+                                this.style.cursor = 'grab';
+                            });
+                            
+                            // Connect zoom control buttons
+                            document.getElementById('zoom-in').addEventListener('click', function() {
+                                panzoom.zoomIn(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('zoom-out').addEventListener('click', function() {
+                                panzoom.zoomOut(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('reset-zoom').addEventListener('click', function() {
+                                panzoom.reset({ animate: true });
+                            });
+                            
+                            // Prevent text selection when dragging
+                            element.addEventListener('selectstart', function(e) {
+                                e.preventDefault();
+                                return false;
+                            });
+                            
+                            console.log("Panzoom initialized successfully");
+                        } catch (error) {
+                            console.error("Panzoom initialization error:", error);
+                        }
+                    } else {
+                        console.warn("Diagram element not found or Panzoom not available");
+                    }
+                } else {
+                    // Try again if we haven't exceeded max attempts
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
+                        setTimeout(initPanzoom, checkInterval);
+                    } else {
+                        console.error("Failed to find rendered Mermaid diagram after multiple attempts");
+                        alert("There was a problem rendering the diagram. Please refresh the page to try again.");
+                    }
+                }
+            }
+            
+            // Start checking for diagram rendering
+            setTimeout(initPanzoom, 500);
+        });
+    </script>
+</body>
+</html> 

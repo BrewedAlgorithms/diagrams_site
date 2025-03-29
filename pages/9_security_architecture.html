@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Architecture - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            height: 600px;
+            width: 100%;
+        }
+        #diagram-element {
+            transform-origin: 0 0;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .zoom-controls button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .zoom-controls button:hover {
+            background: var(--primary-color);
+        }
+        .mermaid {
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+        .mermaid svg {
+            touch-action: none;
+            width: 100%;
+            height: 100%;
+            display: block !important;
+            min-width: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../index.html#technology">Technology</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <div class="page-content">
+            <h1 class="section-title" data-aos="fade-up">Security Architecture</h1>
+            
+            <div class="diagram-explanation" data-aos="fade-up">
+                <p>This diagram illustrates the comprehensive security architecture of the NeuroNexus, focusing on data protection, authentication, and secure transaction handling. The layered approach ensures that sensitive customer and payment information is protected at every stage of the checkout process.</p>
+            </div>
+            
+            <div class="diagram-container" data-aos="fade-up">
+                <div class="zoom-controls">
+                    <button id="zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                    <button id="reset-zoom" title="Reset Zoom"><i class="fas fa-home"></i></button>
+                </div>
+                <div id="diagram-element">
+                    <div class="mermaid">
+                    flowchart TB
+                        subgraph "User-Facing Layer"
+                            style biometricScanner fill:#e1bee7,stroke:#8e24aa
+                            biometricScanner["👆 Biometric Scanner<br>(Fingerprint Reader)"]
+                            
+                            style nfcReader fill:#bbdefb,stroke:#1976d2
+                            nfcReader["📱 NFC Reader<br>(Mobile Payment)"]
+                            
+                            style ui fill:#c8e6c9,stroke:#388e3c
+                            ui["🖥️ User Interface<br>(Checkout Terminal)"]
+                        end
+                        
+                        subgraph "Security Infrastructure"
+                            style secureElement fill:#ffcdd2,stroke:#c62828
+                            secureElement["🔐 Secure Element<br>(Tamper-Resistant Hardware)"]
+                            
+                            style encryptionModule fill:#ffccbc,stroke:#e64a19
+                            encryptionModule["🔒 Encryption Module<br>(AES-256/RSA)"]
+                            
+                            style authManager fill:#fff9c4,stroke:#fbc02d
+                            authManager["🔑 Auth Manager<br>(Identity Verification)"]
+                            
+                            style tokenManager fill:#d1c4e9,stroke:#5e35b1
+                            tokenManager["🎟️ Token Manager<br>(Secure Credentials)"]
+                        end
+                        
+                        subgraph "Data Protection Layer"
+                            style biometricStore fill:#f8bbd0,stroke:#c2185b
+                            biometricStore[("👤 Biometric Templates<br>(Non-Reversible Hashing)")]
+                            
+                            style paymentTokens fill:#ffe0b2,stroke:#f57c00
+                            paymentTokens[("💳 Payment Tokens<br>(Encrypted Storage)")]
+                            
+                            style transactionLogs fill:#b2dfdb,stroke:#00796b
+                            transactionLogs[("📝 Transaction Logs<br>(Immutable Records)")]
+                            
+                            style auditTrail fill:#c5e1a5,stroke:#7cb342
+                            auditTrail[("📊 Audit Trail<br>(Security Events)")]
+                        end
+                        
+                        subgraph "Communication Security"
+                            style secureChannel fill:#b3e5fc,stroke:#0288d1
+                            secureChannel["🔄 Secure Channel<br>(TLS 1.3)"]
+                            
+                            style apiSecurity fill:#b39ddb,stroke:#512da8
+                            apiSecurity["🛡️ API Security<br>(Auth & Rate Limiting)"]
+                            
+                            style firewall fill:#ef9a9a,stroke:#d32f2f
+                            firewall["🧱 Firewall<br>(Network Protection)"]
+                        end
+                        
+                        %% Interaction Flows
+                        biometricScanner -->|"Capture"| secureElement
+                        secureElement -->|"Process"| encryptionModule
+                        encryptionModule -->|"Match"| biometricStore
+                        biometricStore -->|"Verify ID"| authManager
+                        
+                        nfcReader -->|"Payment Data"| encryptionModule
+                        
+                        ui -->|"User Input"| authManager
+                        ui -->|"Display Results"| secureChannel
+                        
+                        authManager -->|"Grant Access"| tokenManager
+                        tokenManager -->|"Store"| paymentTokens
+                        tokenManager -->|"Generate"| transactionLogs
+                        
+                        secureChannel -->|"External Comms"| apiSecurity
+                        apiSecurity -->|"Gateway Access"| firewall
+                        
+                        %% Monitoring and Auditing
+                        encryptionModule -.->|"Log Events"| auditTrail
+                        authManager -.->|"Log Access"| auditTrail
+                        tokenManager -.->|"Log Tokens"| auditTrail
+                        apiSecurity -.->|"Log Requests"| auditTrail
+                        
+                        %% Cross-Layer Security
+                        secureElement --- encryptionModule
+                        encryptionModule --- authManager
+                        authManager --- tokenManager
+                        tokenManager --- secureChannel
+                        
+                        %% Styling
+                        classDef input fill:#e8eaf6,stroke:#3949ab,color:#1a237e;
+                        classDef process fill:#f3e5f5,stroke:#8e24aa,color:#4a148c;
+                        classDef storage fill:#e0f7fa,stroke:#0097a7,color:#006064;
+                        classDef comms fill:#fce4ec,stroke:#d81b60,color:#880e4f;
+                        
+                        class biometricScanner,nfcReader,ui input;
+                        class secureElement,encryptionModule,authManager,tokenManager process;
+                        class biometricStore,paymentTokens,transactionLogs,auditTrail storage;
+                        class secureChannel,apiSecurity,firewall comms;
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-explanation" data-aos="fade-up">
+                <h2>Security Layers & Protection Mechanisms</h2>
+                <p>The NeuroNexus implements a multi-layered security approach that ensures comprehensive protection of customer data and transaction integrity:</p>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>User-Facing Security Components</h3>
+                        <p>The first layer includes secure input devices: the <strong>Biometric Scanner</strong> captures fingerprint data without storing actual images, the <strong>NFC Reader</strong> establishes secure communication with mobile payment devices, and the <strong>User Interface</strong> implements protection against common attacks like clickjacking and data injection. These components form the trusted entry points for all customer interactions with the system.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Core Security Infrastructure</h3>
+                        <p>The heart of the security architecture consists of four critical components: the <strong>Secure Element</strong> provides tamper-resistant hardware for processing sensitive data; the <strong>Encryption Module</strong> uses industry-standard AES-256 and RSA algorithms for data protection; the <strong>Auth Manager</strong> handles identity verification through multiple factors; and the <strong>Token Manager</strong> creates and manages secure payment credentials. Together, these components ensure that sensitive operations are performed in protected environments.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Data Protection Strategy</h3>
+                        <p>Sensitive data is protected through specialized storage mechanisms: <strong>Biometric Templates</strong> are stored using non-reversible hashing that prevents reconstruction of actual fingerprints; <strong>Payment Tokens</strong> replace actual payment details with encrypted tokens; <strong>Transaction Logs</strong> maintain immutable records for auditing; and the <strong>Audit Trail</strong> tracks all security-relevant events. This defense-in-depth approach ensures that even if one layer is compromised, multiple additional safeguards remain in place.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Communication Security</h3>
+                        <p>All data transfers are protected through robust communication security: <strong>Secure Channels</strong> based on TLS 1.3 encrypt all data in transit; <strong>API Security</strong> implements authentication, authorization, and rate limiting to prevent abuse; and a <strong>Firewall</strong> provides network-level protection against external threats. This ensures end-to-end protection for all data moving between system components and external services.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Comprehensive Security Monitoring</h3>
+                        <p>The security architecture includes extensive monitoring through the audit trail system. All security-relevant components log their activities, creating a comprehensive record that enables detection of anomalies, supports forensic investigation if needed, and provides compliance evidence. This monitoring system operates independently from operational components, ensuring that security events are recorded even if other parts of the system are compromised.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons" data-aos="fade-up">
+                <a href="8_ui_wireframe.html" class="nav-button prev">
+                    <i class="fas fa-chevron-left"></i> UI Wireframe
+                </a>
+                <a href="10_offline_mode_workflow.html" class="nav-button next">
+                    Offline Mode Workflow <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 NeuroNexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Mermaid with specific settings for better rendering
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            logLevel: 'error'
+        });
+
+        // Function to check if an element is visible in the viewport
+        function isElementVisible(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Allow some time for mermaid to render first
+            let attempts = 0;
+            const maxAttempts = 10;
+            const checkInterval = 500; // Check every 500ms
+            
+            function initPanzoom() {
+                const mermaidDiv = document.querySelector('.mermaid');
+                const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
+                
+                if (diagramSvg && isElementVisible(diagramSvg)) {
+                    console.log("Mermaid diagram rendered successfully!");
+                    
+                    // Make sure the SVG is fully visible
+                    diagramSvg.style.display = 'block';
+                    diagramSvg.style.width = '100%';
+                    diagramSvg.style.height = '100%';
+                    diagramSvg.style.minWidth = '100%';
+                    diagramSvg.style.minHeight = '100%';
+                    
+                    // Initialize Panzoom on the diagram element
+                    const element = document.getElementById('diagram-element');
+                    
+                    if (element && typeof Panzoom === 'function') {
+                        try {
+                            // Initialize Panzoom with optimized settings
+                            const panzoom = Panzoom(element, {
+                                maxScale: 5,
+                                minScale: 0.5,
+                                contain: 'outside',
+                                excludeClass: 'zoom-controls',
+                                canvas: true
+                            });
+                            
+                            // Set the cursor style
+                            element.style.cursor = 'grab';
+                            
+                            // Enable mouse wheel zooming
+                            element.addEventListener('wheel', function(e) {
+                                e.preventDefault();
+                                const delta = e.deltaY;
+                                
+                                if (delta > 0) {
+                                    panzoom.zoomOut(0.2, {
+                                        animate: false
+                                    });
+                                } else {
+                                    panzoom.zoomIn(0.2, {
+                                        animate: false
+                                    });
+                                }
+                            });
+                            
+                            // Change cursor when dragging
+                            element.addEventListener('mousedown', function() {
+                                this.style.cursor = 'grabbing';
+                            });
+                            
+                            element.addEventListener('mouseup', function() {
+                                this.style.cursor = 'grab';
+                            });
+                            
+                            // Connect zoom control buttons
+                            document.getElementById('zoom-in').addEventListener('click', function() {
+                                panzoom.zoomIn(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('zoom-out').addEventListener('click', function() {
+                                panzoom.zoomOut(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('reset-zoom').addEventListener('click', function() {
+                                panzoom.reset({ animate: true });
+                            });
+                            
+                            // Prevent text selection when dragging
+                            element.addEventListener('selectstart', function(e) {
+                                e.preventDefault();
+                                return false;
+                            });
+                            
+                            console.log("Panzoom initialized successfully");
+                        } catch (error) {
+                            console.error("Panzoom initialization error:", error);
+                        }
+                    } else {
+                        console.warn("Diagram element not found or Panzoom not available");
+                    }
+                } else {
+                    // Try again if we haven't exceeded max attempts
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
+                        setTimeout(initPanzoom, checkInterval);
+                    } else {
+                        console.error("Failed to find rendered Mermaid diagram after multiple attempts");
+                        alert("There was a problem rendering the diagram. Please refresh the page to try again.");
+                    }
+                }
+            }
+            
+            // Start checking for diagram rendering
+            setTimeout(initPanzoom, 500);
+        });
+    </script>
+</body>
+</html> 

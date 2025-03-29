@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Needs Assessment - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research" class="active">Research</a>
+            <a href="../index.html#technology">Technology</a>
+            <a href="../index.html#about">About Us</a>
+        </div>
+    </nav>
+    
+    <div class="research-content">
+        <h1 data-aos="fade-up">User Needs Assessment</h1>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Overview</h2>
+            <p>Our user needs assessment focused on understanding the pain points, preferences, and requirements of both consumers and retail staff regarding checkout processes. Through comprehensive market analysis, literature reviews, and industry benchmarking, we identified key areas where current checkout systems fall short and opportunities for innovation.</p>
+            
+            <div class="highlight-box">
+                <i class="fas fa-lightbulb"></i>
+                <div>
+                    <h3>Key Insight</h3>
+                    <p>The average consumer spends 8 minutes in checkout lines per shopping trip, with 73% reporting this as their most frustrating aspect of in-store shopping.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Key Findings</h2>
+            
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <div class="finding-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Waiting Time</h3>
+                    <p>92% of consumers reported waiting time as their primary pain point, with an average tolerance threshold of 4 minutes before considering abandoning their purchase.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <div class="finding-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Payment Flexibility</h3>
+                    <p>87% of consumers expect multiple payment options, with contactless payments preferred by 65% of shoppers under 45.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <div class="finding-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security Concerns</h3>
+                    <p>78% of consumers expressed privacy concerns about biometric data usage, though 62% would accept it with proper security guarantees.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <div class="finding-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>Staff Perspective</h3>
+                    <p>Retail staff reported spending 46% of their time resolving checkout issues, with price checks and barcode scanning problems causing most delays.</p>
+                </div>
+            </div>
+            
+            <div class="chart-container" data-aos="fade-up">
+                <h3>Consumer Checkout Pain Points</h3>
+                <canvas id="painPointsChart"></canvas>
+            </div>
+            
+            <div class="chart-container" data-aos="fade-up">
+                <h3>Preferred Checkout Methods by Age Group</h3>
+                <canvas id="checkoutPreferencesChart"></canvas>
+            </div>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Methodology</h2>
+            <p>Our user needs assessment employed a mixed-methods approach to gather comprehensive insights:</p>
+            
+            <div class="methodology-steps">
+                <div class="methodology-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Market Analysis</h3>
+                        <p>We analyzed data from multiple industry reports covering customer behaviors and preferences across different retail environments and demographics.</p>
+                    </div>
+                </div>
+                
+                <div class="methodology-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Industry Trend Research</h3>
+                        <p>We examined current retail technology trends and best practices focusing on checkout experiences and customer satisfaction metrics.</p>
+                    </div>
+                </div>
+                
+                <div class="methodology-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Observational Studies</h3>
+                        <p>Our team conducted 200+ hours of in-store observations across 12 different retail environments to analyze checkout behaviors and bottlenecks.</p>
+                    </div>
+                </div>
+                
+                <div class="methodology-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Prototype Testing</h3>
+                        <p>We tested early UI prototypes with 150 consumers to evaluate usability and preference for different smart checkout interaction models.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Persona Development</h2>
+            <p>Based on our research, we developed four key user personas to guide our design process:</p>
+            
+            <div class="persona-grid">
+                <div class="persona-card">
+                    <img src="../images/persona-busy-professional.jpg" alt="Busy Professional Persona" class="persona-image">
+                    <div class="persona-content">
+                        <h3>Busy Professional</h3>
+                        <p>Time-sensitive shoppers who prioritize speed and efficiency above all else. They prefer minimal interaction and maximal automation.</p>
+                        <ul class="persona-traits">
+                            <li>Values: Efficiency, convenience, predictability</li>
+                            <li>Pain points: Waiting times, repetitive tasks</li>
+                            <li>Tech comfort: High</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="persona-card">
+                    <img src="../images/persona-tech-skeptic.jpg" alt="Tech Skeptic Persona" class="persona-image">
+                    <div class="persona-content">
+                        <h3>Tech Skeptic</h3>
+                        <p>Shoppers who are wary of new technologies, especially regarding privacy and reliability. They need clear benefits and reassurance.</p>
+                        <ul class="persona-traits">
+                            <li>Values: Privacy, transparency, control</li>
+                            <li>Pain points: Trust issues, complexity</li>
+                            <li>Tech comfort: Low to moderate</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="persona-card">
+                    <img src="../images/persona-retail-manager.jpg" alt="Retail Manager Persona" class="persona-image">
+                    <div class="persona-content">
+                        <h3>Retail Manager</h3>
+                        <p>Store managers focused on operational efficiency, staff utilization, and customer satisfaction metrics.</p>
+                        <ul class="persona-traits">
+                            <li>Values: ROI, staff productivity, customer satisfaction</li>
+                            <li>Pain points: Integration issues, training requirements</li>
+                            <li>Tech comfort: Moderate</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="persona-card">
+                    <img src="../images/persona-value-shopper.jpg" alt="Value Shopper Persona" class="persona-image">
+                    <div class="persona-content">
+                        <h3>Value Shopper</h3>
+                        <p>Price-conscious consumers who want to ensure they're getting the best deals and accurate pricing during checkout.</p>
+                        <ul class="persona-traits">
+                            <li>Values: Price transparency, accuracy, savings</li>
+                            <li>Pain points: Price inconsistencies, discount application</li>
+                            <li>Tech comfort: Moderate</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Conclusions</h2>
+            <p>Our user needs assessment revealed several critical requirements for a successful NeuroNexus:</p>
+            
+            <ul class="conclusions-list">
+                <li><strong>Speed is non-negotiable</strong> - The system must reduce checkout time by at least 70% compared to traditional methods to meet user expectations.</li>
+                <li><strong>Flexibility in interaction</strong> - Users need multiple ways to interact with the system based on their comfort level with technology.</li>
+                <li><strong>Clear security communication</strong> - Transparent communication about data usage and security measures is essential for user trust.</li>
+                <li><strong>Operational reliability</strong> - The system must work consistently without technical issues to avoid frustrating both customers and staff.</li>
+                <li><strong>Gradual adoption path</strong> - A phased implementation approach is needed to bring along tech-skeptical users.</li>
+            </ul>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Recommendations</h2>
+            <p>Based on our user needs assessment, we recommend the following design principles for the NeuroNexus:</p>
+            
+            <div class="recommendations-grid">
+                <div class="recommendation-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Frictionless First</h3>
+                    <p>Design the core experience around minimal interaction requirements, enabling users to complete checkout with the least possible friction.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-layer-group"></i>
+                    <h3>Multiple Interaction Modes</h3>
+                    <p>Support voice, touch, and gesture interactions to accommodate different user preferences and accessibility needs.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-lock-open"></i>
+                    <h3>Transparent Security</h3>
+                    <p>Provide clear, non-technical explanations of security measures and data usage at key moments in the user journey.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Progressive Disclosure</h3>
+                    <p>Implement a tiered interface that reveals additional features and options as users become more comfortable with the system.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-sync-alt"></i>
+                    <h3>Graceful Fallbacks</h3>
+                    <p>Design for system resilience with graceful degradation to simpler checkout methods if advanced features encounter issues.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>User Control</h3>
+                    <p>Allow users to determine their level of automation and system trust, with options to verify or override system decisions.</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="navigation-buttons">
+            <a href="research.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Back to Research Index
+            </a>
+            <a href="technology-eval.html" class="nav-button next">
+                Next: Technology Evaluation <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+                <a href="../index.html#technology">Technology</a>
+                <a href="../index.html#about">About Us</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2023 NeuroNexus. NeuroNexus. All diagrams created with Mermaid.js
+        </div>
+    </footer>
+    
+    <script src="../js/main.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Consumer Pain Points Chart
+        const painPointsCtx = document.getElementById('painPointsChart').getContext('2d');
+        const painPointsChart = new Chart(painPointsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Long Wait Times', 'Price Check Delays', 'Item Not Scanning', 'Payment Issues', 'Receipt Problems', 'Cashier Interaction'],
+                datasets: [{
+                    label: 'Consumer Frustration Level (1-10)',
+                    data: [8.7, 6.9, 6.5, 5.8, 4.2, 3.1],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)',
+                        'rgba(255, 159, 64, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 206, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(153, 102, 255)',
+                        'rgb(255, 159, 64)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: 'Frustration Level'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Pain Points'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Frustration: ${context.raw}/10`;
+                            }
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+        
+        // Checkout Preferences Chart
+        const preferencesCtx = document.getElementById('checkoutPreferencesChart').getContext('2d');
+        const preferencesChart = new Chart(preferencesCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Traditional Checkout', 'Self-Checkout', 'Mobile Scan & Go', 'Fully Automated', 'Biometric Payment'],
+                datasets: [
+                    {
+                        label: 'Ages 18-34',
+                        data: [30, 65, 78, 85, 72],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        pointBackgroundColor: 'rgb(255, 99, 132)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(255, 99, 132)'
+                    },
+                    {
+                        label: 'Ages 35-54',
+                        data: [42, 70, 65, 68, 55],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        pointBackgroundColor: 'rgb(54, 162, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(54, 162, 235)'
+                    },
+                    {
+                        label: 'Ages 55+',
+                        data: [75, 50, 35, 25, 15],
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgb(255, 206, 86)',
+                        pointBackgroundColor: 'rgb(255, 206, 86)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(255, 206, 86)'
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw}% preference`;
+                            }
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+    <style>
+        /* Research page specific styles */
+        .research-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .research-section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        
+        .research-section:last-child {
+            border-bottom: none;
+        }
+        
+        .highlight-box {
+            display: flex;
+            align-items: center;
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-box i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-right: 1.5rem;
+        }
+        
+        .highlight-box h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+        
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .finding-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+        
+        .finding-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        
+        .finding-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .chart-container {
+            height: 400px;
+            margin: 3rem 0;
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .chart-container h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .methodology-steps {
+            margin: 2rem 0;
+        }
+        
+        .methodology-step {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            flex: 0 0 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            margin-right: 1.5rem;
+        }
+        
+        .step-content h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .persona-card {
+            display: flex;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .persona-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .persona-content {
+            padding: 1.5rem;
+            flex: 1;
+        }
+        
+        .persona-content h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .persona-traits {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        
+        .persona-traits li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .conclusions-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .conclusions-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: rgba(52, 152, 219, 0.05);
+            border-left: 3px solid var(--primary-color);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .recommendation-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+        
+        .recommendation-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .recommendation-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .findings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .persona-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .persona-card {
+                flex-direction: column;
+            }
+            
+            .persona-image {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .highlight-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .highlight-box i {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</body>
+</html> 

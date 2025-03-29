@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BPMN Process Flow - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            height: 600px;
+            width: 100%;
+        }
+        #diagram-element {
+            transform-origin: 0 0;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .zoom-controls button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .zoom-controls button:hover {
+            background: var(--primary-color);
+        }
+        .mermaid {
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+        .mermaid svg {
+            touch-action: none;
+            width: 100%;
+            height: 100%;
+            display: block !important;
+            min-width: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../index.html#technology">Technology</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <div class="page-content">
+            <h1 class="section-title" data-aos="fade-up">BPMN Process Flow</h1>
+            
+            <div class="diagram-explanation" data-aos="fade-up">
+                <p>This BPMN-style diagram illustrates the business process flow from a customer approaching checkout to completing a transaction, including different payment methods and potential failure paths. The diagram shows the complete checkout workflow with decision points and alternative paths.</p>
+            </div>
+            
+            <div class="diagram-container" data-aos="fade-up">
+                <div class="zoom-controls">
+                    <button id="zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                    <button id="reset-zoom" title="Reset Zoom"><i class="fas fa-home"></i></button>
+                </div>
+                <div id="diagram-element">
+                    <div class="mermaid">
+                    flowchart TB
+                        %% Start and End Events
+                        Start((🛒 Start<br>Checkout)) --> ApproachCheckout
+                        Success((✅ Transaction<br>Complete)) 
+                        Failure((❌ Transaction<br>Failed))
+                        
+                        %% Main Process Flow
+                        subgraph "Customer Actions"
+                            style ApproachCheckout fill:#bbdefb,stroke:#1565c0
+                            ApproachCheckout[🧍 Approach<br>Checkout Zone] --> RFIDScan
+                            
+                            style ReviewCart fill:#bbdefb,stroke:#1565c0
+                            ReviewCart[📋 Review<br>Cart Items] --> ModifyCart
+                            
+                            style ModifyCart fill:#bbdefb,stroke:#1565c0
+                            ModifyCart{🔄 Modify<br>Cart?}
+                            ModifyCart -->|Yes| AdjustItems
+                            ModifyCart -->|No| SelectPaymentMethod
+                            
+                            style AdjustItems fill:#bbdefb,stroke:#1565c0
+                            AdjustItems[✏️ Add/Remove<br>Items] --> ReviewCart
+                            
+                            style SelectPaymentMethod fill:#bbdefb,stroke:#1565c0
+                            SelectPaymentMethod{💳 Select<br>Payment Method}
+                        end
+                        
+                        subgraph "System Processing"
+                            style RFIDScan fill:#c8e6c9,stroke:#2e7d32
+                            RFIDScan[📡 Scan RFID<br>Tags] --> DisplayCart
+                            
+                            style DisplayCart fill:#c8e6c9,stroke:#2e7d32
+                            DisplayCart[🖥️ Display Cart<br>Contents] --> ReviewCart
+                            
+                            style VerifyStock fill:#c8e6c9,stroke:#2e7d32
+                            VerifyStock[📦 Verify<br>Stock] --> ProcessFingerprint
+                        end
+                        
+                        subgraph "Payment Processing"
+                            %% Biometric Path
+                            style ProcessFingerprint fill:#ffe0b2,stroke:#e65100
+                            ProcessFingerprint[👆 Process<br>Fingerprint] --> VerifyBiometric
+                            
+                            style VerifyBiometric fill:#ffe0b2,stroke:#e65100
+                            VerifyBiometric{✓ Biometric<br>Verified?}
+                            VerifyBiometric -->|Yes| TokenizePayment
+                            VerifyBiometric -->|No| BiometricRetry
+                            
+                            style BiometricRetry fill:#ffe0b2,stroke:#e65100
+                            BiometricRetry{🔄 Retry?}
+                            BiometricRetry -->|Yes| ProcessFingerprint
+                            BiometricRetry -->|No| SelectPaymentMethod
+                            
+                            %% NFC Path
+                            style ProcessNFC fill:#fff9c4,stroke:#fbc02d
+                            ProcessNFC[📱 Process<br>NFC Payment] --> VerifyNFC
+                            
+                            style VerifyNFC fill:#fff9c4,stroke:#fbc02d
+                            VerifyNFC{✓ NFC<br>Verified?}
+                            VerifyNFC -->|Yes| TokenizePayment
+                            VerifyNFC -->|No| SelectPaymentMethod
+                            
+                            %% Card Path
+                            style ProcessCard fill:#e1bee7,stroke:#8e24aa
+                            ProcessCard[💳 Process<br>Card Payment] --> AuthorizeCard
+                            
+                            style AuthorizeCard fill:#e1bee7,stroke:#8e24aa
+                            AuthorizeCard{✓ Card<br>Authorized?}
+                            AuthorizeCard -->|Yes| TokenizePayment
+                            AuthorizeCard -->|No| SelectPaymentMethod
+                            
+                            %% Shared Payment Path
+                            style TokenizePayment fill:#d1c4e9,stroke:#512da8
+                            TokenizePayment[🔐 Tokenize<br>Payment] --> SendPayment
+                            
+                            style SendPayment fill:#d1c4e9,stroke:#512da8
+                            SendPayment[📤 Send Payment<br>to Gateway] --> PaymentResult
+                            
+                            style PaymentResult fill:#d1c4e9,stroke:#512da8
+                            PaymentResult{💰 Payment<br>Successful?}
+                            PaymentResult -->|Yes| UpdateInventory
+                            PaymentResult -->|No| PaymentRetry
+                            
+                            style PaymentRetry fill:#d1c4e9,stroke:#512da8
+                            PaymentRetry{🔄 Try Another<br>Method?}
+                            PaymentRetry -->|Yes| SelectPaymentMethod
+                            PaymentRetry -->|No| Failure
+                        end
+                        
+                        subgraph "Post-Payment"
+                            style UpdateInventory fill:#f8bbd0,stroke:#c2185b
+                            UpdateInventory[📊 Update<br>Inventory] --> GenerateReceipt
+                            
+                            style GenerateReceipt fill:#f8bbd0,stroke:#c2185b
+                            GenerateReceipt[🧾 Generate<br>Receipt] --> Success
+                        end
+                        
+                        %% Connect Payment Methods
+                        SelectPaymentMethod -->|Fingerprint| ProcessFingerprint
+                        SelectPaymentMethod -->|NFC| ProcessNFC
+                        SelectPaymentMethod -->|Card| ProcessCard
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-explanation" data-aos="fade-up">
+                <h2>Checkout Process Workflow</h2>
+                <p>The NeuroNexus follows a structured business process model with clearly defined steps and decision points:</p>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Customer Interaction Flow</h3>
+                        <p>The process begins when a customer approaches the checkout zone. The system automatically scans RFID tags on products and displays the cart contents for customer review. Customers can then modify their cart by adding or removing items before proceeding to payment selection. This streamlined interaction reduces checkout time and improves the customer experience.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>System Processing</h3>
+                        <p>Behind the scenes, the system performs key operations including RFID scanning of all items simultaneously, displaying the cart contents with pricing information, and verifying stock availability. This automated processing eliminates the need for manual scanning of individual items, significantly reducing checkout time while ensuring accuracy.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Multi-Modal Payment Options</h3>
+                        <p>The system supports three payment methods: biometric fingerprint authentication, NFC mobile payments, and traditional card payments. Each method has its own verification process and fallback mechanisms. The fingerprint authentication path includes retry options, while all methods eventually converge to a common tokenization process that enhances security by ensuring sensitive payment data never directly enters the system.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-random"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Decision Points & Alternative Paths</h3>
+                        <p>The workflow contains multiple decision points that handle both normal operations and exception scenarios. These include cart modification decisions, payment method selection, authentication verification, and payment processing results. If any verification step fails, the system provides alternative paths, such as retrying biometric authentication or selecting a different payment method, ensuring customers can complete their purchase even if their preferred method encounters issues.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Post-Payment Processing</h3>
+                        <p>After successful payment, the system automatically updates inventory levels to reflect the purchased items and generates a digital receipt for the customer. This integrated approach ensures that inventory management stays current in real-time, while providing customers with immediate transaction confirmation. The entire process is designed to be frictionless and efficient.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons" data-aos="fade-up">
+                <a href="4_data_flow_diagram.html" class="nav-button prev">
+                    <i class="fas fa-chevron-left"></i> Data Flow Diagram
+                </a>
+                <a href="6_class_diagram.html" class="nav-button next">
+                    Class Diagram <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 NeuroNexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Mermaid with specific settings for better rendering
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            logLevel: 'error'
+        });
+
+        // Function to check if an element is visible in the viewport
+        function isElementVisible(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Allow some time for mermaid to render first
+            let attempts = 0;
+            const maxAttempts = 10;
+            const checkInterval = 500; // Check every 500ms
+            
+            function initPanzoom() {
+                const mermaidDiv = document.querySelector('.mermaid');
+                const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
+                
+                if (diagramSvg && isElementVisible(diagramSvg)) {
+                    console.log("Mermaid diagram rendered successfully!");
+                    
+                    // Make sure the SVG is fully visible
+                    diagramSvg.style.display = 'block';
+                    diagramSvg.style.width = '100%';
+                    diagramSvg.style.height = '100%';
+                    diagramSvg.style.minWidth = '100%';
+                    diagramSvg.style.minHeight = '100%';
+                    
+                    // Initialize Panzoom on the diagram element
+                    const element = document.getElementById('diagram-element');
+                    
+                    if (element && typeof Panzoom === 'function') {
+                        try {
+                            // Initialize Panzoom with optimized settings
+                            const panzoom = Panzoom(element, {
+                                maxScale: 5,
+                                minScale: 0.5,
+                                contain: 'outside',
+                                excludeClass: 'zoom-controls',
+                                canvas: true
+                            });
+                            
+                            // Set the cursor style
+                            element.style.cursor = 'grab';
+                            
+                            // Enable mouse wheel zooming
+                            element.addEventListener('wheel', function(e) {
+                                e.preventDefault();
+                                const delta = e.deltaY;
+                                
+                                if (delta > 0) {
+                                    panzoom.zoomOut(0.2, {
+                                        animate: false
+                                    });
+                                } else {
+                                    panzoom.zoomIn(0.2, {
+                                        animate: false
+                                    });
+                                }
+                            });
+                            
+                            // Change cursor when dragging
+                            element.addEventListener('mousedown', function() {
+                                this.style.cursor = 'grabbing';
+                            });
+                            
+                            element.addEventListener('mouseup', function() {
+                                this.style.cursor = 'grab';
+                            });
+                            
+                            // Connect zoom control buttons
+                            document.getElementById('zoom-in').addEventListener('click', function() {
+                                panzoom.zoomIn(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('zoom-out').addEventListener('click', function() {
+                                panzoom.zoomOut(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('reset-zoom').addEventListener('click', function() {
+                                panzoom.reset({ animate: true });
+                            });
+                            
+                            // Prevent text selection when dragging
+                            element.addEventListener('selectstart', function(e) {
+                                e.preventDefault();
+                                return false;
+                            });
+                            
+                            console.log("Panzoom initialized successfully");
+                        } catch (error) {
+                            console.error("Panzoom initialization error:", error);
+                        }
+                    } else {
+                        console.warn("Diagram element not found or Panzoom not available");
+                    }
+                } else {
+                    // Try again if we haven't exceeded max attempts
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
+                        setTimeout(initPanzoom, checkInterval);
+                    } else {
+                        console.error("Failed to find rendered Mermaid diagram after multiple attempts");
+                        alert("There was a problem rendering the diagram. Please refresh the page to try again.");
+                    }
+                }
+            }
+            
+            // Start checking for diagram rendering
+            setTimeout(initPanzoom, 500);
+        });
+    </script>
+</body>
+</html> 

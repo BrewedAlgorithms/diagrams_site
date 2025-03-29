@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESEARCH_TITLE - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research" class="active">Research</a>
+            <a href="../index.html#technology">Technology</a>
+            <a href="../index.html#about">About Us</a>
+        </div>
+    </nav>
+    
+    <div class="research-page">
+        <h1 data-aos="fade-up">RESEARCH_TITLE</h1>
+        
+        <div class="research-section-content" data-aos="fade-up">
+            <h2>Overview</h2>
+            <p>RESEARCH_OVERVIEW</p>
+            
+            <div class="research-graph">
+                <canvas id="mainChart" width="800" height="400"></canvas>
+            </div>
+            
+            <p>RESEARCH_SUMMARY</p>
+        </div>
+        
+        <div class="research-section-content" data-aos="fade-up">
+            <h2>Key Findings</h2>
+            
+            <h3>FINDING_1_TITLE</h3>
+            <p>FINDING_1_DESCRIPTION</p>
+            
+            <h3>FINDING_2_TITLE</h3>
+            <p>FINDING_2_DESCRIPTION</p>
+            
+            <h3>FINDING_3_TITLE</h3>
+            <p>FINDING_3_DESCRIPTION</p>
+            
+            <div class="research-graph">
+                <canvas id="secondaryChart" width="800" height="400"></canvas>
+            </div>
+        </div>
+        
+        <div class="research-section-content" data-aos="fade-up">
+            <h2>Methodology</h2>
+            <p>RESEARCH_METHODOLOGY</p>
+            
+            <h3>Data Collection</h3>
+            <p>DATA_COLLECTION_DESCRIPTION</p>
+            
+            <h3>Analysis Approach</h3>
+            <p>ANALYSIS_APPROACH_DESCRIPTION</p>
+        </div>
+        
+        <div class="research-section-content" data-aos="fade-up">
+            <h2>Conclusions & Recommendations</h2>
+            <p>CONCLUSIONS</p>
+            
+            <h3>Implications for NeuroNexus</h3>
+            <ul>
+                <li>IMPLICATION_1</li>
+                <li>IMPLICATION_2</li>
+                <li>IMPLICATION_3</li>
+                <li>IMPLICATION_4</li>
+            </ul>
+            
+            <h3>Next Steps</h3>
+            <p>NEXT_STEPS</p>
+        </div>
+        
+        <div class="navigation-buttons">
+            <a href="../index.html#research" class="nav-button">
+                <i class="fas fa-th-large"></i> All Research
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+                <a href="../index.html#technology">Technology</a>
+                <a href="../index.html#about">About Us</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2023 NeuroNexus. NeuroNexus. All diagrams created with Mermaid.js
+        </div>
+    </footer>
+    
+    <script src="../js/main.js"></script>
+    <script>
+        // Chart.js configurations for the research charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sample data - replace with actual research data
+            const mainChartCtx = document.getElementById('mainChart').getContext('2d');
+            const mainChart = new Chart(mainChartCtx, {
+                type: 'CHART_TYPE_1',
+                data: {
+                    labels: ['LABEL_1', 'LABEL_2', 'LABEL_3', 'LABEL_4', 'LABEL_5'],
+                    datasets: [{
+                        label: 'DATASET_LABEL_1',
+                        data: [DATASET_1_VALUES],
+                        backgroundColor: 'rgba(52, 152, 219, 0.5)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            const secondaryChartCtx = document.getElementById('secondaryChart').getContext('2d');
+            const secondaryChart = new Chart(secondaryChartCtx, {
+                type: 'CHART_TYPE_2',
+                data: {
+                    labels: ['LABEL_1', 'LABEL_2', 'LABEL_3', 'LABEL_4'],
+                    datasets: [{
+                        label: 'DATASET_LABEL_2',
+                        data: [DATASET_2_VALUES],
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.5)',
+                            'rgba(46, 204, 113, 0.5)',
+                            'rgba(231, 76, 60, 0.5)',
+                            'rgba(243, 156, 18, 0.5)'
+                        ],
+                        borderColor: [
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(46, 204, 113, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(243, 156, 18, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

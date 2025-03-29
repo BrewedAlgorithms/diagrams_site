@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Flow Diagram - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            height: 600px;
+            width: 100%;
+        }
+        #diagram-element {
+            transform-origin: 0 0;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .zoom-controls button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .zoom-controls button:hover {
+            background: var(--primary-color);
+        }
+        .mermaid {
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+        .mermaid svg {
+            touch-action: none;
+            width: 100%;
+            height: 100%;
+            display: block !important;
+            min-width: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../index.html#technology">Technology</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <div class="page-content">
+            <h1 class="section-title" data-aos="fade-up">Data Flow Diagram</h1>
+            
+            <div class="diagram-explanation" data-aos="fade-up">
+                <p>This diagram illustrates how data flows through the NeuroNexus, showing interactions between different components, databases, and external entities. The structured approach demonstrates how information moves through each process, ensuring complete data handling from product identification to receipt generation.</p>
+            </div>
+            
+            <div class="diagram-container" data-aos="fade-up">
+                <div class="zoom-controls">
+                    <button id="zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                    <button id="reset-zoom" title="Reset Zoom"><i class="fas fa-home"></i></button>
+                </div>
+                <div id="diagram-element">
+                    <div class="mermaid">
+                    flowchart TB
+                        subgraph "External Entities"
+                            Customer["👤 Customer"]
+                            Retailer["🏪 Retailer"]
+                            PaymentProvider["💰 Payment Provider"]
+                        end
+                        
+                        subgraph "Processes"
+                            style ProductIdentification fill:#bbdefb,stroke:#1565c0
+                            ProductIdentification["🔍 1.0<br>Product Identification<br>(RFID Scanning)"]
+                            
+                            style CartManagement fill:#c8e6c9,stroke:#2e7d32
+                            CartManagement["🛒 2.0<br>Cart Management<br>(Review & Modify)"]
+                            
+                            style UserAuthentication fill:#e1bee7,stroke:#6a1b9a
+                            UserAuthentication["🔐 3.0<br>User Authentication<br>(Biometric/Mobile)"]
+                            
+                            style PaymentProcessing fill:#ffe0b2,stroke:#e65100
+                            PaymentProcessing["💳 4.0<br>Payment Processing"]
+                            
+                            style ReceiptGeneration fill:#f8bbd0,stroke:#c2185b
+                            ReceiptGeneration["🧾 5.0<br>Receipt Generation"]
+                            
+                            style InventoryUpdate fill:#b2dfdb,stroke:#00796b
+                            InventoryUpdate["📦 6.0<br>Inventory Update"]
+                        end
+                        
+                        subgraph "Data Stores"
+                            style ProductDB fill:#e3f2fd,stroke:#1976d2
+                            ProductDB[("🏷️ D1<br>Product Database<br>(MySQL)")]
+                            
+                            style UserDB fill:#fce4ec,stroke:#d81b60
+                            UserDB[("👥 D2<br>User Database<br>(MySQL)")]
+                            
+                            style BiometricDB fill:#f3e5f5,stroke:#8e24aa
+                            BiometricDB[("👆 D3<br>Biometric Templates<br>(Secure Storage)")]
+                            
+                            style PaymentTokens fill:#fff3e0,stroke:#ff8f00
+                            PaymentTokens[("🔑 D4<br>Payment Tokens<br>(Secure Element)")]
+                            
+                            style TransactionDB fill:#f1f8e9,stroke:#558b2f
+                            TransactionDB[("💵 D5<br>Transaction Records<br>(MySQL)")]
+                            
+                            style InventoryDB fill:#e0f2f1,stroke:#00897b
+                            InventoryDB[("📊 D6<br>Inventory Database<br>(MySQL)")]
+                        end
+                        
+                        %% Data Flows
+                        Customer -->|"Items for Purchase"| ProductIdentification
+                        ProductIdentification -->|"Product Codes/IDs"| ProductDB
+                        ProductDB -->|"Product Details (Name, Price)"| ProductIdentification
+                        ProductIdentification -->|"Detected Items List"| CartManagement
+                        
+                        Customer -->|"Cart Modifications"| CartManagement
+                        CartManagement -->|"Final Cart Contents"| PaymentProcessing
+                        
+                        Customer -->|"Authentication Factor<br>(Fingerprint/NFC)"| UserAuthentication
+                        UserAuthentication -->|"User ID Lookup"| UserDB
+                        UserDB -->|"User Profile"| UserAuthentication
+                        UserAuthentication -->|"Biometric Template Request"| BiometricDB
+                        BiometricDB -->|"Encrypted Template"| UserAuthentication
+                        
+                        UserAuthentication -->|"Authentication Result"| PaymentProcessing
+                        PaymentProcessing -->|"Payment Token Request"| PaymentTokens
+                        PaymentTokens -->|"Encrypted Payment Token"| PaymentProcessing
+                        
+                        PaymentProcessing -->|"Payment Authorization"| PaymentProvider
+                        PaymentProvider -->|"Transaction Result"| PaymentProcessing
+                        
+                        PaymentProcessing -->|"Transaction Details"| TransactionDB
+                        PaymentProcessing -->|"Purchase Information"| ReceiptGeneration
+                        
+                        ReceiptGeneration -->|"Receipt"| Customer
+                        ReceiptGeneration -->|"Transaction Record"| Retailer
+                        
+                        PaymentProcessing -->|"Purchased Items"| InventoryUpdate
+                        InventoryUpdate -->|"Quantity Updates"| InventoryDB
+                        
+                        classDef entity fill:#e8eaf6,stroke:#3949ab,color:#283593;
+                        classDef process fill:#f5f5f5,stroke:#616161,color:#212121;
+                        classDef datastore fill:#eceff1,stroke:#455a64,color:#263238;
+                        
+                        class Customer,Retailer,PaymentProvider entity;
+                        class ProductIdentification,CartManagement,UserAuthentication,PaymentProcessing,ReceiptGeneration,InventoryUpdate process;
+                        class ProductDB,UserDB,BiometricDB,PaymentTokens,TransactionDB,InventoryDB datastore;
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-explanation" data-aos="fade-up">
+                <h2>System Components & Data Flow</h2>
+                <p>The NeuroNexus handles data systematically across multiple processes and storage systems:</p>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>External Entities</h3>
+                        <p>The system interacts with three primary external entities: the Customer who provides items and authentication factors, the Retailer who receives transaction records, and the Payment Provider which processes financial transactions. These entities represent the boundaries of our system and define its input and output channels.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Core Processes</h3>
+                        <p>Six key processes handle the checkout workflow: Product Identification scans and identifies items using RFID technology; Cart Management allows for reviewing and modifying items; User Authentication verifies the customer's identity; Payment Processing handles secure fund transfers; Receipt Generation provides transaction records; and Inventory Update ensures stock levels remain accurate after each purchase.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Data Stores</h3>
+                        <p>The system relies on six specialized data stores: the Product Database contains all item information; the User Database stores customer profiles; the Biometric Templates storage securely maintains encrypted biometric data; Payment Tokens are securely held in the system's secure element; Transaction Records are maintained for accounting and analytics; and the Inventory Database tracks stock levels in real-time.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Data Flow Patterns</h3>
+                        <p>Information flows through the system in a structured sequence. Starting with product identification, the system passes detected items to cart management, while simultaneously consulting the product database for pricing and details. User authentication creates a secure channel for payment processing, which then finalizes the transaction through multiple security layers. Post-payment, the system branches to update three areas: the transaction database, receipt generation, and inventory management.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Security Focus</h3>
+                        <p>Security considerations are embedded in the data flow design. Sensitive information, such as biometric templates and payment details, are always encrypted and handled through dedicated secure storage. The authentication flow separates biometric processing from payment processing, ensuring compartmentalized security. External payment providers handle the most sensitive financial operations, keeping certain liability aspects outside our system boundary.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons" data-aos="fade-up">
+                <a href="3_biometric_payment_sequence.html" class="nav-button prev">
+                    <i class="fas fa-chevron-left"></i> Biometric Payment Sequence
+                </a>
+                <a href="5_bpmn_process_flow.html" class="nav-button next">
+                    BPMN Process Flow <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 NeuroNexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Mermaid with specific settings for better rendering
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            logLevel: 'error'
+        });
+
+        // Function to check if an element is visible in the viewport
+        function isElementVisible(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Allow some time for mermaid to render first
+            let attempts = 0;
+            const maxAttempts = 10;
+            const checkInterval = 500; // Check every 500ms
+            
+            function initPanzoom() {
+                const mermaidDiv = document.querySelector('.mermaid');
+                const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
+                
+                if (diagramSvg && isElementVisible(diagramSvg)) {
+                    console.log("Mermaid diagram rendered successfully!");
+                    
+                    // Make sure the SVG is fully visible
+                    diagramSvg.style.display = 'block';
+                    diagramSvg.style.width = '100%';
+                    diagramSvg.style.height = '100%';
+                    diagramSvg.style.minWidth = '100%';
+                    diagramSvg.style.minHeight = '100%';
+                    
+                    // Initialize Panzoom on the diagram element
+                    const element = document.getElementById('diagram-element');
+                    
+                    if (element && typeof Panzoom === 'function') {
+                        try {
+                            // Initialize Panzoom with optimized settings
+                            const panzoom = Panzoom(element, {
+                                maxScale: 5,
+                                minScale: 0.5,
+                                contain: 'outside',
+                                excludeClass: 'zoom-controls',
+                                canvas: true
+                            });
+                            
+                            // Set the cursor style
+                            element.style.cursor = 'grab';
+                            
+                            // Enable mouse wheel zooming
+                            element.addEventListener('wheel', function(e) {
+                                e.preventDefault();
+                                const delta = e.deltaY;
+                                
+                                if (delta > 0) {
+                                    panzoom.zoomOut(0.2, {
+                                        animate: false
+                                    });
+                                } else {
+                                    panzoom.zoomIn(0.2, {
+                                        animate: false
+                                    });
+                                }
+                            });
+                            
+                            // Change cursor when dragging
+                            element.addEventListener('mousedown', function() {
+                                this.style.cursor = 'grabbing';
+                            });
+                            
+                            element.addEventListener('mouseup', function() {
+                                this.style.cursor = 'grab';
+                            });
+                            
+                            // Connect zoom control buttons
+                            document.getElementById('zoom-in').addEventListener('click', function() {
+                                panzoom.zoomIn(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('zoom-out').addEventListener('click', function() {
+                                panzoom.zoomOut(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('reset-zoom').addEventListener('click', function() {
+                                panzoom.reset({ animate: true });
+                            });
+                            
+                            // Prevent text selection when dragging
+                            element.addEventListener('selectstart', function(e) {
+                                e.preventDefault();
+                                return false;
+                            });
+                            
+                            console.log("Panzoom initialized successfully");
+                        } catch (error) {
+                            console.error("Panzoom initialization error:", error);
+                        }
+                    } else {
+                        console.warn("Diagram element not found or Panzoom not available");
+                    }
+                } else {
+                    // Try again if we haven't exceeded max attempts
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
+                        setTimeout(initPanzoom, checkInterval);
+                    } else {
+                        console.error("Failed to find rendered Mermaid diagram after multiple attempts");
+                        alert("There was a problem rendering the diagram. Please refresh the page to try again.");
+                    }
+                }
+            }
+            
+            // Start checking for diagram rendering
+            setTimeout(initPanzoom, 500);
+        });
+    </script>
+</body>
+</html> 

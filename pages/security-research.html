@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Research - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research" class="active">Research</a>
+            <a href="../index.html#technology">Technology</a>
+            <a href="../index.html#about">About Us</a>
+        </div>
+    </nav>
+    
+    <div class="research-content">
+        <h1 data-aos="fade-up">Security Research</h1>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Overview</h2>
+            <p>Our security research focused on identifying potential vulnerabilities, compliance requirements, and best practices for protecting customer data in a NeuroNexus. Given the sensitive nature of biometric data and payment information, robust security is not just a technical requirement but a foundation of user trust and regulatory compliance.</p>
+            
+            <div class="highlight-box">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                    <h3>Key Insight</h3>
+                    <p>A layered security approach combining hardware security modules, cryptographic techniques, and privacy-preserving algorithms provides the best protection while maintaining system performance and flexibility.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Key Risk Areas</h2>
+            
+            <div class="risk-matrix" data-aos="fade-up">
+                <h3>Security Risk Matrix</h3>
+                <div class="risk-matrix-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Risk Category</th>
+                                <th>Impact</th>
+                                <th>Likelihood</th>
+                                <th>Risk Level</th>
+                                <th>Mitigation Strategy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="high-risk">
+                                <td>Biometric Data Breach</td>
+                                <td>Very High</td>
+                                <td>Medium</td>
+                                <td>High</td>
+                                <td>Implement biometric template protection, avoid storing raw biometric data</td>
+                            </tr>
+                            <tr class="high-risk">
+                                <td>Payment Information Theft</td>
+                                <td>High</td>
+                                <td>High</td>
+                                <td>High</td>
+                                <td>End-to-end encryption, PCI DSS compliance, tokenization</td>
+                            </tr>
+                            <tr class="medium-risk">
+                                <td>System Tampering</td>
+                                <td>High</td>
+                                <td>Low</td>
+                                <td>Medium</td>
+                                <td>Secure boot, tamper-resistant hardware, cryptographic verification</td>
+                            </tr>
+                            <tr class="medium-risk">
+                                <td>Transaction Manipulation</td>
+                                <td>Medium</td>
+                                <td>Medium</td>
+                                <td>Medium</td>
+                                <td>Real-time transaction validation, audit logging, anomaly detection</td>
+                            </tr>
+                            <tr class="medium-risk">
+                                <td>Unauthorized Access</td>
+                                <td>Medium</td>
+                                <td>Medium</td>
+                                <td>Medium</td>
+                                <td>Multi-factor authentication, role-based access control, access logs</td>
+                            </tr>
+                            <tr class="low-risk">
+                                <td>Denial of Service</td>
+                                <td>Medium</td>
+                                <td>Low</td>
+                                <td>Low</td>
+                                <td>Rate limiting, traffic monitoring, backup operation modes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="chart-container" data-aos="fade-up">
+                <h3>Security Vulnerability Distribution</h3>
+                <canvas id="vulnerabilityChart"></canvas>
+            </div>
+            
+            <p class="research-note">Our security assessment identified biometric data protection and payment security as the highest priority areas, with significant regulatory and reputation implications if compromised.</p>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Regulatory Compliance</h2>
+            <p>The NeuroNexus must comply with multiple regulatory frameworks depending on deployment location:</p>
+            
+            <div class="compliance-grid">
+                <div class="compliance-card">
+                    <div class="compliance-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="compliance-content">
+                        <h3>PCI DSS</h3>
+                        <p>Payment Card Industry Data Security Standard requirements for handling cardholder data.</p>
+                        <ul class="compliance-requirements">
+                            <li>Encrypted transmission of cardholder data</li>
+                            <li>Secure payment application development</li>
+                            <li>Access control measures</li>
+                            <li>Regular security testing</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="compliance-card">
+                    <div class="compliance-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="compliance-content">
+                        <h3>GDPR</h3>
+                        <p>General Data Protection Regulation for EU deployments.</p>
+                        <ul class="compliance-requirements">
+                            <li>Explicit consent for biometric data usage</li>
+                            <li>Data minimization principles</li>
+                            <li>User access to their stored data</li>
+                            <li>Right to be forgotten implementation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="compliance-card">
+                    <div class="compliance-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="compliance-content">
+                        <h3>CCPA/CPRA</h3>
+                        <p>California Consumer Privacy Act requirements for US deployments.</p>
+                        <ul class="compliance-requirements">
+                            <li>Disclosure of data collection practices</li>
+                            <li>Consumer opt-out mechanisms</li>
+                            <li>Reasonable security measures</li>
+                            <li>Data deletion processes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="compliance-card">
+                    <div class="compliance-icon">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <div class="compliance-content">
+                        <h3>Biometric Laws</h3>
+                        <p>State-specific biometric information laws (BIPA, etc.).</p>
+                        <ul class="compliance-requirements">
+                            <li>Written consent for biometric collection</li>
+                            <li>Secure storage requirements</li>
+                            <li>Prohibition on selling biometric data</li>
+                            <li>Retention and destruction policies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="research-note">Our analysis found that designing for the most stringent requirements (GDPR and BIPA) creates a system that can be deployed globally with minimal regional customization.</p>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Security Architecture</h2>
+            <p>Based on our research, we designed a multi-layered security architecture for the NeuroNexus:</p>
+            
+            <div class="mermaid-diagram" data-aos="fade-up">
+                <div class="mermaid">
+graph TB
+    subgraph "Edge Device Security"
+        A[Tamper-Resistant Hardware] --> B[Secure Boot]
+        B --> C[Runtime Protection]
+        C --> D[Local Encryption]
+    end
+    
+    subgraph "Data Security"
+        E[Biometric Template Protection] --> F[Homomorphic Encryption]
+        F --> G[Tokenization]
+        G --> H[Secure Key Management]
+    end
+    
+    subgraph "Network Security"
+        I[TLS 1.3 Encryption] --> J[Certificate Pinning]
+        J --> K[API Security]
+        K --> L[DDoS Protection]
+    end
+    
+    subgraph "Application Security"
+        M[Secure SDLC] --> N[Input Validation]
+        N --> O[Output Encoding]
+        O --> P[Session Management]
+    end
+    
+    D --> E
+    H --> I
+    L --> M
+    
+    classDef primary fill:#3498db,stroke:#2980b9,color:white;
+    classDef secondary fill:#2ecc71,stroke:#27ae60,color:white;
+    classDef tertiary fill:#f1c40f,stroke:#f39c12,color:white;
+    classDef quaternary fill:#e74c3c,stroke:#c0392b,color:white;
+    
+    class A,B,C,D primary;
+    class E,F,G,H quaternary;
+    class I,J,K,L secondary;
+    class M,N,O,P tertiary;
+                </div>
+            </div>
+            
+            <p>The security architecture implements defense-in-depth strategies with multiple protective layers:</p>
+            
+            <ol class="security-layers">
+                <li><strong>Hardware Security:</strong> Physical protections including tamper-resistant enclosures, secure elements, and hardware security modules (HSMs) for cryptographic operations.</li>
+                <li><strong>Data Protection:</strong> Advanced techniques for protecting sensitive data, including biometric template protection that prevents reconstruction of original biometric features.</li>
+                <li><strong>Communication Security:</strong> Secured channels for all data transmission using industry-standard protocols with additional verification mechanisms.</li>
+                <li><strong>Application Security:</strong> Secure development practices, regular code audits, and runtime protections against common vulnerabilities.</li>
+            </ol>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Biometric Data Protection</h2>
+            <p>Our research focused extensively on biometric data protection as a key security challenge:</p>
+            
+            <div class="comparison-table" data-aos="fade-up">
+                <h3>Biometric Protection Methods Comparison</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Protection Method</th>
+                            <th>Security Level</th>
+                            <th>Performance Impact</th>
+                            <th>Revocability</th>
+                            <th>Recommended Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Standard Encryption</td>
+                            <td>Medium</td>
+                            <td>Low</td>
+                            <td>Low</td>
+                            <td>Temporary storage only</td>
+                        </tr>
+                        <tr>
+                            <td>Cancelable Biometrics</td>
+                            <td>High</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                            <td>Face and fingerprint</td>
+                        </tr>
+                        <tr class="highlighted-row">
+                            <td>Biometric Hashing</td>
+                            <td>Very High</td>
+                            <td>Medium</td>
+                            <td>Medium</td>
+                            <td>Primary protection method</td>
+                        </tr>
+                        <tr>
+                            <td>Homomorphic Encryption</td>
+                            <td>Very High</td>
+                            <td>High</td>
+                            <td>Medium</td>
+                            <td>Verification operations</td>
+                        </tr>
+                        <tr>
+                            <td>Secure Multi-party Computation</td>
+                            <td>Very High</td>
+                            <td>Very High</td>
+                            <td>High</td>
+                            <td>Limited to critical operations</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p class="research-note">Our evaluation led to the adoption of biometric hashing as the primary protection method, with homomorphic encryption for specific operations where matching must occur without decryption.</p>
+            
+            <div class="feature-highlight" data-aos="fade-up">
+                <div class="feature-icon">
+                    <i class="fas fa-fingerprint"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Biometric Template Protection</h3>
+                    <p>The system converts biometric features into irreversible templates that can be matched but not reversed to recreate the original biometric data. This approach ensures that even if template data is compromised, the actual biometric information remains protected.</p>
+                    <p>Key aspects of our biometric protection approach:</p>
+                    <ul>
+                        <li>One-way transformation using salted biometric hashing</li>
+                        <li>Template revocability through parameterized transformations</li>
+                        <li>Separation of biometric data from identifying information</li>
+                        <li>Multiple template formats to prevent cross-matching</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Methodology</h2>
+            <p>Our security research methodology combined multiple assessment approaches:</p>
+            
+            <div class="methodology-steps">
+                <div class="methodology-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Threat Modeling</h3>
+                        <p>We conducted STRIDE threat modeling sessions to systematically identify potential threats across all system components and user interaction points.</p>
+                    </div>
+                </div>
+                
+                <div class="methodology-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Security Research Analysis</h3>
+                        <p>We reviewed publications from cybersecurity experts specializing in retail systems, biometric security, and payment processing to identify emerging threats and best practices.</p>
+                    </div>
+                </div>
+                
+                <div class="methodology-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Penetration Testing</h3>
+                        <p>We conducted simulated attack exercises on early prototypes to identify vulnerabilities in both hardware and software components.</p>
+                    </div>
+                </div>
+                
+                <div class="methodology-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Regulatory Analysis</h3>
+                        <p>We analyzed applicable laws and standards across different jurisdictions to ensure global compliance of our security architecture.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Conclusions</h2>
+            <p>Our security research led to several key conclusions that will shape our approach:</p>
+            
+            <ul class="conclusions-list">
+                <li><strong>Security By Design is Non-Negotiable</strong> - Security must be integrated from the earliest design phases rather than added later as an enhancement.</li>
+                <li><strong>Biometric Data Requires Special Protection</strong> - Unlike passwords, biometric characteristics cannot be changed if compromised, necessitating irreversible template protection.</li>
+                <li><strong>Compliance Requirements Are Complex</strong> - The system must accommodate multiple overlapping regulatory frameworks that continue to evolve.</li>
+                <li><strong>User Trust Depends on Transparency</strong> - Clear communication about security measures increases user acceptance of biometric authentication.</li>
+                <li><strong>Edge-Based Security Reduces Risk</strong> - Processing sensitive operations at the edge minimizes data transmission and associated vulnerabilities.</li>
+            </ul>
+        </section>
+        
+        <section class="research-section" data-aos="fade-up">
+            <h2>Recommendations</h2>
+            <p>Based on our security research, we recommend the following approach for the NeuroNexus:</p>
+            
+            <div class="recommendations-grid">
+                <div class="recommendation-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Hardware Security</h3>
+                    <p>Implement dedicated security hardware including HSMs for cryptographic operations and secure elements for key storage.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-fingerprint"></i>
+                    <h3>Biometric Protection</h3>
+                    <p>Use cancelable biometrics with one-way transformations to create revocable templates that cannot be reverse-engineered.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Payment Security</h3>
+                    <p>Implement end-to-end encryption and tokenization for payment data with PCI DSS compliance as a minimum baseline.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-user-lock"></i>
+                    <h3>Privacy Controls</h3>
+                    <p>Develop granular user consent mechanisms allowing customers to opt in/out of specific data usage with clear explanations.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-sync-alt"></i>
+                    <h3>Security Updates</h3>
+                    <p>Implement a secure, automated update mechanism with cryptographic verification for all system components.</p>
+                </div>
+                
+                <div class="recommendation-card">
+                    <i class="fas fa-search"></i>
+                    <h3>Continuous Monitoring</h3>
+                    <p>Deploy anomaly detection and intrusion detection systems to identify potential security breaches in real-time.</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="navigation-buttons">
+            <a href="technology-eval.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous: Technology Evaluation
+            </a>
+            <a href="competitor-analysis.html" class="nav-button next">
+                Next: Competitor Analysis <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+                <a href="../index.html#technology">Technology</a>
+                <a href="../index.html#about">About Us</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2023 NeuroNexus. NeuroNexus. All diagrams created with Mermaid.js
+        </div>
+    </footer>
+    
+    <script src="../js/main.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Initialize Mermaid diagrams
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+        
+        // Vulnerability distribution chart
+        const vulnCtx = document.getElementById('vulnerabilityChart').getContext('2d');
+        const vulnChart = new Chart(vulnCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'Data Protection Vulnerabilities',
+                    'Authentication Vulnerabilities',
+                    'Communication Vulnerabilities',
+                    'Physical Security Vulnerabilities',
+                    'Application Vulnerabilities'
+                ],
+                datasets: [{
+                    label: 'Vulnerability Distribution',
+                    data: [35, 25, 20, 10, 10],
+                    backgroundColor: [
+                        'rgba(231, 76, 60, 0.7)',
+                        'rgba(241, 196, 15, 0.7)',
+                        'rgba(52, 152, 219, 0.7)',
+                        'rgba(155, 89, 182, 0.7)',
+                        'rgba(46, 204, 113, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgb(231, 76, 60)',
+                        'rgb(241, 196, 15)',
+                        'rgb(52, 152, 219)',
+                        'rgb(155, 89, 182)',
+                        'rgb(46, 204, 113)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <style>
+        /* Security Research page specific styles */
+        .research-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .research-section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        
+        .research-section:last-child {
+            border-bottom: none;
+        }
+        
+        .highlight-box {
+            display: flex;
+            align-items: center;
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-box i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-right: 1.5rem;
+        }
+        
+        .highlight-box h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+        
+        .risk-matrix {
+            margin: 2rem 0;
+        }
+        
+        .risk-matrix h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+        
+        .risk-matrix-container {
+            overflow-x: auto;
+        }
+        
+        .risk-matrix table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .risk-matrix th {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: left;
+            padding: 0.75rem 1rem;
+        }
+        
+        .risk-matrix td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        
+        .risk-matrix .high-risk {
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+        
+        .risk-matrix .medium-risk {
+            background-color: rgba(241, 196, 15, 0.1);
+        }
+        
+        .risk-matrix .low-risk {
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+        
+        .chart-container {
+            height: 400px;
+            margin: 2rem 0;
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .chart-container h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .research-note {
+            background-color: rgba(52, 152, 219, 0.05);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--primary-color);
+            font-style: italic;
+        }
+        
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .compliance-card {
+            display: flex;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .compliance-icon {
+            flex: 0 0 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .compliance-content {
+            padding: 1.5rem;
+            flex: 1;
+        }
+        
+        .compliance-content h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .compliance-requirements {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        
+        .compliance-requirements li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .compliance-requirements li:before {
+            content: "✓";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .mermaid-diagram {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+        
+        .security-layers {
+            background-color: rgba(52, 152, 219, 0.05);
+            padding: 1.5rem 1.5rem 1.5rem 3rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+        }
+        
+        .security-layers li {
+            margin-bottom: 1rem;
+        }
+        
+        .security-layers li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .comparison-table {
+            margin: 2rem 0;
+        }
+        
+        .comparison-table h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: left;
+            padding: 0.75rem 1rem;
+        }
+        
+        .comparison-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        
+        .comparison-table .highlighted-row {
+            background-color: rgba(46, 204, 113, 0.1);
+            font-weight: 600;
+        }
+        
+        .feature-highlight {
+            display: flex;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        
+        .feature-icon {
+            flex: 0 0 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .feature-content {
+            padding: 1.5rem;
+            flex: 1;
+        }
+        
+        .feature-content h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .methodology-steps {
+            margin: 2rem 0;
+        }
+        
+        .methodology-step {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            flex: 0 0 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            margin-right: 1.5rem;
+        }
+        
+        .step-content h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .conclusions-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .conclusions-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: rgba(52, 152, 219, 0.05);
+            border-left: 3px solid var(--primary-color);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .recommendation-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+        
+        .recommendation-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .recommendation-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .compliance-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .compliance-card {
+                flex-direction: column;
+            }
+            
+            .compliance-icon {
+                height: 80px;
+                width: 100%;
+            }
+            
+            .recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-highlight {
+                flex-direction: column;
+            }
+            
+            .feature-icon {
+                height: 100px;
+                width: 100%;
+            }
+            
+            .highlight-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .highlight-box i {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</body>
+</html> 

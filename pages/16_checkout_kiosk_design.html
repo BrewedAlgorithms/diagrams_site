@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Kiosk Design - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            height: 700px;
+            width: 100%;
+        }
+        #diagram-element {
+            transform-origin: 0 0;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .zoom-controls button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .zoom-controls button:hover {
+            background: var(--primary-color);
+        }
+        .mermaid {
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+        .mermaid svg {
+            touch-action: none;
+            width: 100%;
+            height: 100%;
+            display: block !important;
+            min-width: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../index.html#technology">Technology</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <div class="page-content">
+            <h1 class="section-title" data-aos="fade-up">Checkout Kiosk Physical Design</h1>
+            
+            <div class="diagram-explanation" data-aos="fade-up">
+                <p>This diagram illustrates the physical layout and key components of the Smart Checkout kiosk, showing hardware components and user interaction points. The design combines advanced biometric authentication, RFID product scanning, and multiple payment options in an ergonomic, customer-friendly interface.</p>
+            </div>
+            
+            <div class="diagram-container" data-aos="fade-up">
+                <div class="zoom-controls">
+                    <button id="zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                    <button id="reset-zoom" title="Reset Zoom"><i class="fas fa-home"></i></button>
+                </div>
+                <div id="diagram-element">
+                    <div class="mermaid">
+                    graph TB
+                        subgraph "Smart Checkout Kiosk - Physical Layout"
+                            %% Main Kiosk Structure
+                            style KioskFrame fill:#e8eaf6,stroke:#3949ab,stroke-width:2px
+                            KioskFrame["🖥️ Main Kiosk Housing"]
+                            
+                            %% Display Section
+                            style DisplayPanel fill:#e3f2fd,stroke:#1976d2
+                            DisplayPanel["📺 Interactive Touchscreen Display<br>(15-inch Anti-glare HD)"]
+                            
+                            %% RFID Scanner Zone
+                            style RFIDZone fill:#e8f5e9,stroke:#388e3c,stroke-dasharray:5 5
+                            RFIDZone["📡 RFID Scanning Zone<br>(Multiple Antenna Array)"]
+                            
+                            %% Cart Platform
+                            style CartPlatform fill:#f3e5f5,stroke:#8e24aa
+                            CartPlatform["🧺 Cart/Basket Platform<br>(Weight Sensors)"]
+                            
+                            %% Payment Device Integration
+                            style PaymentPanel fill:#fff8e1,stroke:#ffa000
+                            PaymentPanel["💳 Payment Interface Panel"]
+                            
+                            %% Biometric Components
+                            style Fingerprint fill:#e1bee7,stroke:#8e24aa
+                            Fingerprint["👆 Fingerprint Scanner<br>(Optical, 500+ DPI)"]
+                            
+                            %% NFC Reader
+                            style NFCReader fill:#ffecb3,stroke:#ffa000
+                            NFCReader["📱 NFC Reader<br>(ISO 14443 Compliant)"]
+                            
+                            %% Card Reader
+                            style CardTerminal fill:#ffe0b2,stroke:#f57c00
+                            CardTerminal["💳 Card Reader<br>(EMV Chip & Contactless)"]
+                            
+                            %% Printer
+                            style ReceiptPrinter fill:#f5f5f5,stroke:#616161
+                            ReceiptPrinter["🧾 Thermal Receipt Printer"]
+                            
+                            %% Visual Indicators
+                            style StatusLights fill:#b3e5fc,stroke:#0288d1
+                            StatusLights["🔆 Status Indicator Lights"]
+                            
+                            %% Speakers
+                            style AudioSystem fill:#bbdefb,stroke:#1976d2
+                            AudioSystem["🔊 Audio Feedback System"]
+                            
+                            %% Camera
+                            style Camera fill:#c8e6c9,stroke:#388e3c
+                            Camera["📷 Camera<br>(For Product Verification)"]
+                            
+                            %% Barcode Scanner
+                            style BarcodeScanner fill:#dcedc8,stroke:#7cb342
+                            BarcodeScanner["📊 Barcode Scanner<br>(For Manual Entry)"]
+                            
+                            %% Emergency Button
+                            style EmergencyButton fill:#ffcdd2,stroke:#e53935
+                            EmergencyButton["🚨 Help/Emergency Button"]
+                            
+                            %% Terminal Brain
+                            style ProcessingUnit fill:#d1c4e9,stroke:#673ab7
+                            ProcessingUnit["🧠 Processing Unit<br>(Edge Computing)"]
+                            
+                            %% Network Connectivity
+                            style NetworkModule fill:#b2dfdb,stroke:#00796b
+                            NetworkModule["📶 Network Module<br>(Wi-Fi/Ethernet/4G)"]
+                            
+                            %% Power System
+                            style PowerSupply fill:#ffccbc,stroke:#e64a19
+                            PowerSupply["⚡ Power Supply<br>(With Backup Battery)"]
+                        end
+                        
+                        %% Component Relationships and Layout
+                        KioskFrame --- DisplayPanel
+                        KioskFrame --- RFIDZone
+                        KioskFrame --- CartPlatform
+                        KioskFrame --- PaymentPanel
+                        KioskFrame --- ReceiptPrinter
+                        KioskFrame --- StatusLights
+                        KioskFrame --- AudioSystem
+                        KioskFrame --- Camera
+                        KioskFrame --- BarcodeScanner
+                        KioskFrame --- EmergencyButton
+                        
+                        PaymentPanel --- Fingerprint
+                        PaymentPanel --- NFCReader
+                        PaymentPanel --- CardTerminal
+                        
+                        %% Internal Components
+                        KioskFrame -.-> ProcessingUnit
+                        KioskFrame -.-> NetworkModule
+                        KioskFrame -.-> PowerSupply
+                        
+                        %% Layout Description
+                        classDef kiosk fill:#e8eaf6,stroke:#3949ab,color:#283593
+                        classDef interaction fill:#e3f2fd,stroke:#1976d2,color:#0d47a1
+                        classDef scanning fill:#e8f5e9,stroke:#388e3c,color:#1b5e20
+                        classDef payment fill:#fff8e1,stroke:#ffa000,color:#ff6f00
+                        classDef biometric fill:#e1bee7,stroke:#8e24aa,color:#4a148c
+                        classDef output fill:#f5f5f5,stroke:#616161,color:#212121
+                        classDef internal fill:#d1c4e9,stroke:#673ab7,color:#311b92
+                        
+                        class KioskFrame kiosk
+                        class DisplayPanel,BarcodeScanner,EmergencyButton interaction
+                        class RFIDZone,CartPlatform,Camera scanning
+                        class PaymentPanel,NFCReader,CardTerminal payment
+                        class Fingerprint biometric
+                        class ReceiptPrinter,StatusLights,AudioSystem output
+                        class ProcessingUnit,NetworkModule,PowerSupply internal
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-explanation" data-aos="fade-up">
+                <h2>Key Kiosk Components</h2>
+                <p>The Smart Checkout kiosk integrates multiple hardware components to deliver a seamless checkout experience:</p>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Main Interface Components</h3>
+                        <p>The kiosk features a 15-inch anti-glare HD touchscreen display with intuitive user interface controls. Status indicator lights provide visual feedback on scanning progress, payment status, and system readiness. An integrated audio system delivers clear voice prompts and transaction confirmation sounds, enhancing accessibility for all users. The emergency/help button ensures customers can easily request assistance when needed.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Advanced Scanning Technology</h3>
+                        <p>The RFID scanning zone consists of a multiple antenna array strategically positioned to detect RFID-tagged products from any orientation within the cart or basket. The system is complemented by a high-resolution camera that provides visual verification of products and assists the AI/ML system in product recognition. A traditional barcode scanner is also included as a backup for products without RFID tags or when manual entry is required.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Payment Interface Panel</h3>
+                        <p>The payment panel offers multiple payment options including a high-resolution (500+ DPI) optical fingerprint scanner for biometric authentication, an ISO 14443 compliant NFC reader for contactless payments and digital wallets, and an EMV-compliant card reader that supports both chip and contactless card transactions. This versatility ensures customers can pay using their preferred method while maintaining high security standards.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Cart Platform & Verification</h3>
+                        <p>The cart/basket platform incorporates precision weight sensors that work in tandem with the RFID system to verify that all items have been properly scanned. This dual-verification approach significantly reduces errors and prevents theft by confirming that the weight of items detected matches the expected weight of scanned products. The system can detect discrepancies that might indicate unscanned items or incorrect product identification.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Internal Components</h3>
+                        <p>The kiosk is powered by an edge computing processing unit that enables real-time product recognition and transaction processing, minimizing latency and allowing the system to function even during network outages. The network module supports Wi-Fi, Ethernet, and 4G connectivity, ensuring reliable communication with backend systems. A robust power supply with backup battery capabilities protects against power fluctuations and ensures transaction integrity during power outages.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-universal-access"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Accessibility & Ergonomics</h3>
+                        <p>The kiosk design prioritizes accessibility with a thoughtfully positioned interface that accommodates users of varying heights and abilities. The thermal receipt printer provides physical transaction records for customers who prefer paper receipts, while the overall layout minimizes physical barriers and ensures intuitive navigation through the checkout process. All components are designed with ergonomics in mind to reduce customer fatigue and make transactions as effortless as possible.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons" data-aos="fade-up">
+                <a href="15_error_handling.html" class="nav-button prev">
+                    <i class="fas fa-chevron-left"></i> Error Handling
+                </a>
+                <a href="17_ai_ml_product_recognition.html" class="nav-button next">
+                    AI/ML Product Recognition <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 NeuroNexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Mermaid with specific settings for better rendering
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            logLevel: 'error'
+        });
+
+        // Function to check if an element is visible in the viewport
+        function isElementVisible(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Allow some time for mermaid to render first
+            let attempts = 0;
+            const maxAttempts = 10;
+            const checkInterval = 500; // Check every 500ms
+            
+            function initPanzoom() {
+                const mermaidDiv = document.querySelector('.mermaid');
+                const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
+                
+                if (diagramSvg && isElementVisible(diagramSvg)) {
+                    console.log("Mermaid diagram rendered successfully!");
+                    
+                    // Make sure the SVG is fully visible
+                    diagramSvg.style.display = 'block';
+                    diagramSvg.style.width = '100%';
+                    diagramSvg.style.height = '100%';
+                    diagramSvg.style.minWidth = '100%';
+                    diagramSvg.style.minHeight = '100%';
+                    
+                    // Initialize Panzoom on the diagram element
+                    const element = document.getElementById('diagram-element');
+                    
+                    if (element && typeof Panzoom === 'function') {
+                        try {
+                            // Initialize Panzoom with optimized settings
+                            const panzoom = Panzoom(element, {
+                                maxScale: 5,
+                                minScale: 0.5,
+                                contain: 'outside',
+                                excludeClass: 'zoom-controls',
+                                canvas: true
+                            });
+                            
+                            // Set the cursor style
+                            element.style.cursor = 'grab';
+                            
+                            // Enable mouse wheel zooming
+                            element.addEventListener('wheel', function(e) {
+                                e.preventDefault();
+                                const delta = e.deltaY;
+                                
+                                if (delta > 0) {
+                                    panzoom.zoomOut(0.2, {
+                                        animate: false
+                                    });
+                                } else {
+                                    panzoom.zoomIn(0.2, {
+                                        animate: false
+                                    });
+                                }
+                            });
+                            
+                            // Change cursor when dragging
+                            element.addEventListener('mousedown', function() {
+                                this.style.cursor = 'grabbing';
+                            });
+                            
+                            element.addEventListener('mouseup', function() {
+                                this.style.cursor = 'grab';
+                            });
+                            
+                            // Connect zoom control buttons
+                            document.getElementById('zoom-in').addEventListener('click', function() {
+                                panzoom.zoomIn(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('zoom-out').addEventListener('click', function() {
+                                panzoom.zoomOut(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('reset-zoom').addEventListener('click', function() {
+                                panzoom.reset({ animate: true });
+                            });
+                            
+                            // Prevent text selection when dragging
+                            element.addEventListener('selectstart', function(e) {
+                                e.preventDefault();
+                                return false;
+                            });
+                            
+                            console.log("Panzoom initialized successfully");
+                        } catch (error) {
+                            console.error("Panzoom initialization error:", error);
+                        }
+                    } else {
+                        console.warn("Diagram element not found or Panzoom not available");
+                    }
+                } else {
+                    // Try again if we haven't exceeded max attempts
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
+                        setTimeout(initPanzoom, checkInterval);
+                    } else {
+                        console.error("Failed to find rendered Mermaid diagram after multiple attempts");
+                        alert("There was a problem rendering the diagram. Please refresh the page to try again.");
+                    }
+                }
+            }
+            
+            // Start checking for diagram rendering
+            setTimeout(initPanzoom, 500);
+        });
+    </script>
+</body>
+</html> 

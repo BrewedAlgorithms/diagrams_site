@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced NFC Payment Flow - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .wireframe-flow-container {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+            padding: 40px 80px 40px 80px; /* Increased padding on all sides */
+            overflow-x: auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            scroll-padding: 80px;
+            margin-left: 20px;
+            margin-right: 20px;
+            scrollbar-width: thin;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            position: relative; /* Added for positioning context */
+        }
+        
+        .wireframe-flow-container::before {
+            content: '';
+            display: block;
+            width: 40px; /* Buffer space */
+            flex-shrink: 0;
+        }
+        
+        .wireframe-flow-container .wireframe-item:first-child {
+            margin-left: 25px;
+            padding-left: 25px;
+        }
+        
+        .wireframe-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            min-width: 200px;
+            padding: 10px;
+            scroll-snap-align: center;
+        }
+        
+        .wireframe-image {
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 220px;
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .wireframe-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .wireframe-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+        
+        .wireframe-label {
+            margin-top: 15px;
+            font-weight: 500;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            color: #3498db;
+            margin: 0 10px;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            z-index: 1001;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .wireframe-flow-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 30px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 15px 0;
+            }
+            
+            .wireframe-image {
+                max-width: 180px;
+                width: 100%;
+                margin: 0 auto;
+            }
+            
+            .wireframe-flow-container .wireframe-item:first-child {
+                margin-left: 0;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+        }
+        
+        /* Add style to ensure proper scroll position on load */
+        .diagram-page {
+            scroll-behavior: smooth;
+        }
+        
+        /* Add styles for modal navigation arrows */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 32px;
+            background-color: rgba(0, 0, 0, 0.4);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .prev-arrow {
+            left: 30px;
+        }
+        
+        .next-arrow {
+            right: 30px;
+        }
+        
+        .nav-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-arrow {
+                font-size: 24px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            .prev-arrow {
+                left: 15px;
+            }
+            
+            .next-arrow {
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#diagrams" class="active">Diagrams</a>
+            <a href="../index.html#about">About</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <h1 data-aos="fade-up">Enhanced NFC Payment Flow</h1>
+        
+        <div class="diagram-explanation" data-aos="fade-up">
+            <p>This diagram illustrates our redesigned mobile NFC payment journey, showcasing the streamlined user experience from welcome screen to payment confirmation. The new flow emphasizes visual clarity, security indicators, and intuitive interactions to build user confidence and reduce transaction time.</p>
+        </div>
+        
+        <div class="wireframe-flow-container" data-aos="fade-up">
+            <!-- Adding a spacer div before the first item -->
+            <div style="width: 20px; flex-shrink: 0;"></div>
+            
+            <div class="wireframe-item">
+                <div class="wireframe-image" onclick="openModal(this)">
+                    <img src="../images/flow 2/1. Welcome.png" alt="Welcome Screen" onerror="this.src='https://via.placeholder.com/220x350/3498db/ffffff?text=Welcome+Screen'">
+                </div>
+                <div class="wireframe-label">Welcome Screen</div>
+            </div>
+            
+            <div class="flow-arrow">
+                <i class="fas fa-long-arrow-alt-right"></i>
+            </div>
+            
+            <div class="wireframe-item">
+                <div class="wireframe-image" onclick="openModal(this)">
+                    <img src="../images/flow 2/2. Home.png" alt="Home Screen" onerror="this.src='https://via.placeholder.com/220x350/27ae60/ffffff?text=Home+Screen'">
+                </div>
+                <div class="wireframe-label">Home Screen</div>
+            </div>
+            
+            <div class="flow-arrow">
+                <i class="fas fa-long-arrow-alt-right"></i>
+            </div>
+            
+            <div class="wireframe-item">
+                <div class="wireframe-image" onclick="openModal(this)">
+                    <img src="../images/flow 2/3. Select Payment.png" alt="Select Payment" onerror="this.src='https://via.placeholder.com/220x350/8e44ad/ffffff?text=Select+Payment'">
+                </div>
+                <div class="wireframe-label">Select Payment</div>
+            </div>
+            
+            <div class="flow-arrow">
+                <i class="fas fa-long-arrow-alt-right"></i>
+            </div>
+            
+            <div class="wireframe-item">
+                <div class="wireframe-image" onclick="openModal(this)">
+                    <img src="../images/flow 2/4. Pay with NFC.png" alt="NFC Payment" onerror="this.src='https://via.placeholder.com/220x350/f39c12/ffffff?text=NFC+Payment'">
+                </div>
+                <div class="wireframe-label">NFC Payment</div>
+            </div>
+            
+            <div class="flow-arrow">
+                <i class="fas fa-long-arrow-alt-right"></i>
+            </div>
+            
+            <div class="wireframe-item">
+                <div class="wireframe-image" onclick="openModal(this)">
+                    <img src="../images/flow 2/5. Confirmation.png" alt="Payment Confirmation" onerror="this.src='https://via.placeholder.com/220x350/2ecc71/ffffff?text=Payment+Confirmation'">
+                </div>
+                <div class="wireframe-label">Payment Confirmation</div>
+            </div>
+        </div>
+        
+        <!-- Modal for image popup -->
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="nav-arrow prev-arrow" onclick="navigateImage(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="nav-arrow next-arrow" onclick="navigateImage(1)">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <img class="modal-content" id="modalImage">
+        </div>
+        
+        <div class="diagram-explanation" data-aos="fade-up">
+            <h2>Detailed Explanation</h2>
+            <p>The NeuroNexus Smart Checkout System's mobile app provides a seamless NFC payment experience, allowing customers to quickly and securely complete transactions. The wireframes above demonstrate the logical progression through the key screens of our mobile payment process.</p>
+            <br>
+            <h3>Key Screens</h3>
+            <ul>
+                <li><strong>Welcome Screen:</strong> Initial greeting with quick login options using email, social accounts, or phone number. The clean interface establishes user trust from the first interaction.</li>
+                <li><strong>Home Screen:</strong> Personalized dashboard showing the user's payment cards, recent transactions, and quick-access payment buttons. The redesigned interface puts payment options front and center with enhanced visual hierarchy.</li>
+                <li><strong>Select Payment:</strong> Intuitive payment selection interface with clear category tabs for different payment types and prominently displayed preferred payment methods for quick access.</li>
+                <li><strong>NFC Payment:</strong> Streamlined NFC tap screen with animated guidance showing exactly how to position the device at the terminal, along with clear security indicators to build user confidence.</li>
+                <li><strong>Payment Confirmation:</strong> Redesigned confirmation screen showing transaction details, merchant information, loyalty points earned, and receipt options with a successful payment animation for immediate visual feedback.</li>
+            </ul>
+            
+            <h3>How It Works</h3>
+            <p>The enhanced NFC payment flow creates a frictionless experience through carefully designed user interactions. After logging in, users can immediately access their payment options from the home screen. The new payment selection interface features categorized payment methods for easier navigation, while the redesigned NFC payment screen provides clearer visual guidance for proper device positioning at the terminal.</p>
+            
+            <p>The updated confirmation screen offers comprehensive transaction details, including merchant information, amount, date/time, and loyalty program integration. Users can easily save digital receipts, add the transaction to expense tracking, or share payment details through the app.</p>
+            
+            <p>Security has been enhanced with real-time status indicators during the payment process, biometric verification options, and end-to-end encryption visualized through security badges. The entire flow is optimized for speed while maintaining robust security standards, allowing transactions to be completed in seconds.</p>
+        </div>
+        
+        <div class="navigation-buttons">
+            <a href="wireframe_flow.html" class="nav-button prev">
+                <i class="fas fa-arrow-left"></i> Previous Flow
+            </a>
+            <a href="../index.html#diagrams" class="nav-button">
+                <i class="fas fa-th-large"></i> All Diagrams
+            </a>
+            <a href="9_security_architecture.html" class="nav-button next">
+                Security Architecture <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#about">About</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2023 NeuroNexus</div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+        });
+        
+        // Variables to track current image index
+        let currentImageIndex = 0;
+        const wireframeItems = document.querySelectorAll('.wireframe-item');
+        
+        // Modal functionality
+        function openModal(element) {
+            var modal = document.getElementById("imageModal");
+            var modalImg = document.getElementById("modalImage");
+            
+            // Find the index of the clicked image
+            const clickedItem = element.closest('.wireframe-item');
+            const items = Array.from(wireframeItems);
+            currentImageIndex = items.indexOf(clickedItem);
+            
+            modal.style.display = "block";
+            modalImg.src = element.querySelector('img').src;
+            
+            // Add event listener for keyboard navigation
+            document.addEventListener('keydown', handleKeyboardNavigation);
+        }
+        
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+            // Remove keyboard event listener when closing modal
+            document.removeEventListener('keydown', handleKeyboardNavigation);
+        }
+        
+        function handleKeyboardNavigation(e) {
+            if (e.key === 'ArrowRight') {
+                navigateImage(1);
+            } else if (e.key === 'ArrowLeft') {
+                navigateImage(-1);
+            } else if (e.key === 'Escape') {
+                closeModal();
+            }
+        }
+        
+        function navigateImage(direction) {
+            if (wireframeItems.length === 0) return;
+            
+            // Calculate new index with wrap-around
+            currentImageIndex = (currentImageIndex + direction + wireframeItems.length) % wireframeItems.length;
+            
+            // Get the image at the new index and update modal
+            const newImage = wireframeItems[currentImageIndex].querySelector('.wireframe-image img');
+            document.getElementById("modalImage").src = newImage.src;
+        }
+        
+        // Close the modal if user clicks outside the image
+        window.onclick = function(event) {
+            var modal = document.getElementById("imageModal");
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+        
+        // Script to ensure proper scroll position when page loads
+        window.addEventListener('load', function() {
+            var container = document.querySelector('.wireframe-flow-container');
+            if (container) {
+                container.scrollLeft = 0;
+            }
+        });
+    </script>
+</body>
+</html> 

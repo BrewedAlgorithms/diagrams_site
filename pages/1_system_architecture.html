@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Architecture - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            height: 600px;
+            width: 100%;
+        }
+        #diagram-element {
+            transform-origin: 0 0;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .zoom-controls button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .zoom-controls button:hover {
+            background: var(--primary-color);
+        }
+        .mermaid {
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+        .mermaid svg {
+            touch-action: none;
+            width: 100%;
+            height: 100%;
+            display: block !important;
+            min-width: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../index.html#technology">Technology</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <div class="page-content">
+            <h1 class="section-title" data-aos="fade-up">System Architecture</h1>
+            
+            <div class="diagram-explanation" data-aos="fade-up">
+                <p>This diagram provides a high-level overview of the NeuroNexus architecture, showing how different components interact to enable a seamless checkout experience. The system is designed with a modular approach that integrates in-store hardware with powerful backend services and user-facing applications.</p>
+            </div>
+            
+            <div class="diagram-container" data-aos="fade-up">
+                <div class="zoom-controls">
+                    <button id="zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                    <button id="reset-zoom" title="Reset Zoom"><i class="fas fa-home"></i></button>
+                </div>
+                <div id="diagram-element">
+                    <div class="mermaid">
+                    flowchart TB
+                        subgraph "In-Store Components" 
+                            rfid["🏷️ RFID System<br>(Product Identification)"]
+                            checkout["📱 Checkout Terminal<br>(User Interface)"]
+                            biometric["👆 Biometric Scanner<br>(Fingerprint)"]
+                            nfcReader["📡 NFC Reader<br>(Tap Payment)"]
+                            pos["💳 Traditional POS<br>(Fallback Payment)"]
+                        end
+
+                        subgraph "Backend Systems"
+                            style backendServer fill:#e1f5fe,stroke:#0277bd
+                            backendServer["🖥️ Backend Server<br>(NodeJS)"]
+                            
+                            style database fill:#e8f5e9,stroke:#2e7d32
+                            database[("🗄️ Database<br>(MySQL)")]
+                            
+                            style paymentGateway fill:#fce4ec,stroke:#c2185b
+                            paymentGateway["💰 Payment Gateway<br>(3rd Party)"]
+                            
+                            style inventory fill:#fff3e0,stroke:#e65100
+                            inventory["📦 Inventory System<br>(Stock Management)"]
+                        end
+
+                        subgraph "User Applications"
+                            style mobileApp fill:#f3e5f5,stroke:#6a1b9a
+                            mobileApp["📱 Mobile App<br>(Flutter)"]
+                            
+                            style webPortal fill:#e8eaf6,stroke:#3949ab
+                            webPortal["🖥️ Web Portal<br>(React)"]
+                        end
+
+                        rfid --> |Scans Products| checkout
+                        checkout <--> |Data Exchange| backendServer
+                        biometric --> |Authentication| checkout
+                        nfcReader --> |Payment Data| checkout
+                        pos --> |Alternative Payment| checkout
+                        
+                        backendServer <--> |Query/Update| database
+                        backendServer <--> |Process Payment| paymentGateway
+                        backendServer <--> |Update Inventory| inventory
+                        
+                        mobileApp <--> |API Calls| backendServer
+                        webPortal <--> |API Calls| backendServer
+                        
+                        classDef primaryNode fill:#bbdefb,stroke:#1976d2,color:#0d47a1,stroke-width:2px;
+                        classDef secondaryNode fill:#b3e5fc,stroke:#0288d1,color:#01579b;
+                        classDef payment fill:#ffe0b2,stroke:#f57c00,color:#e65100;
+                        
+                        class checkout,backendServer primaryNode;
+                        class rfid,biometric,nfcReader,pos,database,paymentGateway,inventory,mobileApp,webPortal secondaryNode;
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-explanation" data-aos="fade-up">
+                <h2>Architecture Components</h2>
+                <p>Our NeuroNexus integrates various hardware and software components to create a complete solution. Here's how the architecture is organized:</p>
+                <br>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>In-Store Components</h3>
+                        <p>The physical hardware deployed at retail locations forms the core of the customer experience. The RFID system automatically identifies products, while the checkout terminal provides the main user interface. Biometric scanners enable secure authentication, and NFC readers support contactless payments. Traditional POS systems are integrated as a fallback payment option.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Backend Systems</h3>
+                        <p>Powerful backend services handle the core business logic and data processing. The NodeJS backend server coordinates all operations, while the MySQL database stores transaction data and customer information. The payment gateway securely processes financial transactions, and the inventory system ensures accurate stock management with real-time updates.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>User Applications</h3>
+                        <p>Customer-facing applications provide additional touchpoints and enhanced functionality. The Flutter-based mobile app enables shopping list creation, digital receipts, and loyalty program management. The React web portal gives customers access to their purchase history and account settings from any device.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Communication Flows</h3>
+                        <p>Data flows seamlessly between components to create a unified experience. In-store hardware communicates with the checkout terminal, which exchanges data with the backend server. The server interacts with all backend systems including database, payment gateway, and inventory management. Mobile and web applications maintain bidirectional API-based communication with the server.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Security Architecture</h3>
+                        <p>Security is built into every layer of the system. All communications use encrypted channels, and biometric data is handled using secure template storage. Payment processing complies with PCI-DSS standards, and the backend implements comprehensive access controls to protect customer data.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons" data-aos="fade-up">
+                <a href="../index.html" class="nav-button prev">
+                    <i class="fas fa-chevron-left"></i> Home
+                </a>
+                <a href="2_user_journey.html" class="nav-button next">
+                    User Journey <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 NeuroNexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Mermaid with specific settings for better rendering
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            logLevel: 'error'
+        });
+
+        // Function to check if an element is visible in the viewport
+        function isElementVisible(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Allow some time for mermaid to render first
+            let attempts = 0;
+            const maxAttempts = 10;
+            const checkInterval = 500; // Check every 500ms
+            
+            function initPanzoom() {
+                const mermaidDiv = document.querySelector('.mermaid');
+                const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
+                
+                if (diagramSvg && isElementVisible(diagramSvg)) {
+                    console.log("Mermaid diagram rendered successfully!");
+                    
+                    // Make sure the SVG is fully visible
+                    diagramSvg.style.display = 'block';
+                    diagramSvg.style.width = '100%';
+                    diagramSvg.style.height = '100%';
+                    diagramSvg.style.minWidth = '100%';
+                    diagramSvg.style.minHeight = '100%';
+                    
+                    // Initialize Panzoom on the diagram element
+                    const element = document.getElementById('diagram-element');
+                    
+                    if (element && typeof Panzoom === 'function') {
+                        try {
+                            // Initialize Panzoom with optimized settings
+                            const panzoom = Panzoom(element, {
+                                maxScale: 5,
+                                minScale: 0.5,
+                                contain: 'outside',
+                                excludeClass: 'zoom-controls',
+                                canvas: true
+                            });
+                            
+                            // Set the cursor style
+                            element.style.cursor = 'grab';
+                            
+                            // Enable mouse wheel zooming
+                            element.addEventListener('wheel', function(e) {
+                                e.preventDefault();
+                                const delta = e.deltaY;
+                                
+                                if (delta > 0) {
+                                    panzoom.zoomOut(0.2, {
+                                        animate: false
+                                    });
+                                } else {
+                                    panzoom.zoomIn(0.2, {
+                                        animate: false
+                                    });
+                                }
+                            });
+                            
+                            // Change cursor when dragging
+                            element.addEventListener('mousedown', function() {
+                                this.style.cursor = 'grabbing';
+                            });
+                            
+                            element.addEventListener('mouseup', function() {
+                                this.style.cursor = 'grab';
+                            });
+                            
+                            // Connect zoom control buttons
+                            document.getElementById('zoom-in').addEventListener('click', function() {
+                                panzoom.zoomIn(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('zoom-out').addEventListener('click', function() {
+                                panzoom.zoomOut(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('reset-zoom').addEventListener('click', function() {
+                                panzoom.reset({ animate: true });
+                            });
+                            
+                            // Prevent text selection when dragging
+                            element.addEventListener('selectstart', function(e) {
+                                e.preventDefault();
+                                return false;
+                            });
+                            
+                            console.log("Panzoom initialized successfully");
+                        } catch (error) {
+                            console.error("Panzoom initialization error:", error);
+                        }
+                    } else {
+                        console.warn("Diagram element not found or Panzoom not available");
+                    }
+                } else {
+                    // Try again if we haven't exceeded max attempts
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
+                        setTimeout(initPanzoom, checkInterval);
+                    } else {
+                        console.error("Failed to find rendered Mermaid diagram after multiple attempts");
+                        alert("There was a problem rendering the diagram. Please refresh the page to try again.");
+                    }
+                }
+            }
+            
+            // Start checking for diagram rendering
+            setTimeout(initPanzoom, 500);
+        });
+    </script>
+</body>
+</html> 

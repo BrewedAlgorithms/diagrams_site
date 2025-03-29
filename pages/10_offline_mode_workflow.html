@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Mode Workflow - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            height: 700px;
+            width: 100%;
+        }
+        #diagram-element {
+            transform-origin: 0 0;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .zoom-controls button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .zoom-controls button:hover {
+            background: var(--primary-color);
+        }
+        .mermaid {
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+        .mermaid svg {
+            touch-action: none;
+            width: 100%;
+            height: 100%;
+            display: block !important;
+            min-width: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../index.html#technology">Technology</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <div class="page-content">
+            <h1 class="section-title" data-aos="fade-up">Offline Mode Workflow</h1>
+            
+            <div class="diagram-explanation" data-aos="fade-up">
+                <p>This diagram illustrates how the NeuroNexus operates during network outages, showing the offline transaction processing flow and subsequent synchronization when connectivity is restored. This capability ensures business continuity in retail environments even when internet connectivity is unavailable.</p>
+            </div>
+            
+            <div class="diagram-container" data-aos="fade-up">
+                <div class="zoom-controls">
+                    <button id="zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                    <button id="reset-zoom" title="Reset Zoom"><i class="fas fa-home"></i></button>
+                </div>
+                <div id="diagram-element">
+                    <div class="mermaid">
+                    flowchart TB
+                        %% Offline Detection
+                        subgraph "Network Status Management"
+                            style connectivityCheck fill:#e1f5fe,stroke:#0288d1
+                            connectivityCheck{{"🌐 Connectivity<br>Check"}}
+                            
+                            style networkDown fill:#ffcdd2,stroke:#d32f2f
+                            networkDown["📵 Network<br>Unavailable"]
+                            
+                            style offlineMode fill:#bbdefb,stroke:#1976d2
+                            offlineMode["⚠️ Enter<br>Offline Mode"]
+                            
+                            style cacheCheck fill:#e3f2fd,stroke:#1976d2
+                            cacheCheck{{"📋 Check Local<br>Cache Status"}}
+                        end
+                        
+                        %% Offline Operation
+                        subgraph "Offline Transaction Processing"
+                            style productLookup fill:#c8e6c9,stroke:#388e3c
+                            productLookup["🔍 Local Product<br>Lookup (Cached)"]
+                            
+                            style limitCheck fill:#dcedc8,stroke:#689f38
+                            limitCheck{{"💰 Transaction<br>Within Limits?"}}
+                            
+                            style offlineAuth fill:#a5d6a7,stroke:#388e3c
+                            offlineAuth["✅ Offline<br>Authorization"]
+                            
+                            style transactionLimit fill:#ef9a9a,stroke:#d32f2f
+                            transactionLimit["❌ Transaction<br>Exceeds Limits"]
+                            
+                            style alternativePayment fill:#ffccbc,stroke:#e64a19
+                            alternativePayment["💳 Request<br>Alternative Payment"]
+                        end
+                        
+                        %% Local Storage
+                        subgraph "Local Data Management"
+                            style storeTransaction fill:#ffe0b2,stroke:#f57c00
+                            storeTransaction["💾 Store Transaction<br>Locally"]
+                            
+                            style cryptoProof fill:#ffecb3,stroke:#ffa000
+                            cryptoProof["🔏 Generate<br>Cryptographic Proof"]
+                            
+                            style receiptGen fill:#fff9c4,stroke:#fbc02d
+                            receiptGen["🧾 Generate<br>Offline Receipt"]
+                            
+                            style completeOffline fill:#ffeb3b,stroke:#fbc02d
+                            completeOffline["🛒 Complete<br>Offline Transaction"]
+                        end
+                        
+                        %% Reconnection
+                        subgraph "Network Reconnection"
+                            style reconnectCheck fill:#b3e5fc,stroke:#0288d1
+                            reconnectCheck{{"🔄 Check for<br>Reconnection"}}
+                            
+                            style syncQueue fill:#b2ebf2,stroke:#00acc1
+                            syncQueue["📤 Queue<br>Transaction Data"]
+                            
+                            style batchUpload fill:#80deea,stroke:#00acc1
+                            batchUpload["📤 Batch Upload<br>to Server"]
+                        end
+                        
+                        %% Conflict Resolution
+                        subgraph "Synchronization"
+                            style validateTrans fill:#e1bee7,stroke:#8e24aa
+                            validateTrans{{"🔍 Server Validation<br>of Transactions"}}
+                            
+                            style conflictDetect fill:#ce93d8,stroke:#8e24aa
+                            conflictDetect{{"⚠️ Conflicts<br>Detected?"}}
+                            
+                            style resolveConflict fill:#ba68c8,stroke:#8e24aa
+                            resolveConflict["🔄 Resolve<br>Conflicts"]
+                            
+                            style updateLocal fill:#d1c4e9,stroke:#5e35b1
+                            updateLocal["📥 Update Local<br>Cache & State"]
+                            
+                            style resumeOnline fill:#b39ddb,stroke:#5e35b1
+                            resumeOnline["🌐 Resume<br>Online Mode"]
+                        end
+                        
+                        %% Flow Connections
+                        connectivityCheck -->|"Failure"| networkDown
+                        networkDown --> offlineMode
+                        offlineMode --> cacheCheck
+                        
+                        cacheCheck -->|"Cache Valid"| productLookup
+                        cacheCheck -->|"Cache Invalid/Expired"| alternativePayment
+                        
+                        productLookup --> limitCheck
+                        limitCheck -->|"Yes"| offlineAuth
+                        limitCheck -->|"No"| transactionLimit
+                        transactionLimit --> alternativePayment
+                        
+                        offlineAuth --> storeTransaction
+                        storeTransaction --> cryptoProof
+                        cryptoProof --> receiptGen
+                        receiptGen --> completeOffline
+                        
+                        completeOffline --> reconnectCheck
+                        reconnectCheck -->|"Still Offline"| reconnectCheck
+                        reconnectCheck -->|"Reconnected"| syncQueue
+                        syncQueue --> batchUpload
+                        
+                        batchUpload --> validateTrans
+                        validateTrans --> conflictDetect
+                        conflictDetect -->|"Yes"| resolveConflict
+                        conflictDetect -->|"No"| updateLocal
+                        resolveConflict --> updateLocal
+                        updateLocal --> resumeOnline
+                        
+                        %% Styling
+                        classDef check fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20;
+                        classDef error fill:#ffebee,stroke:#c62828,color:#b71c1c;
+                        classDef success fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20;
+                        classDef process fill:#f3e5f5,stroke:#8e24aa,color:#4a148c;
+                        
+                        class connectivityCheck,cacheCheck,limitCheck,reconnectCheck,validateTrans,conflictDetect check;
+                        class networkDown,transactionLimit error;
+                        class offlineAuth,completeOffline,resumeOnline success;
+                        class offlineMode,productLookup,storeTransaction,cryptoProof,receiptGen,syncQueue,batchUpload,resolveConflict,updateLocal,alternativePayment process;
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-explanation" data-aos="fade-up">
+                <h2>Offline Capability & Synchronization</h2>
+                <p>The NeuroNexus maintains full functionality during network outages through a sophisticated offline processing workflow:</p>
+                <br>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-wifi-slash"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Offline Detection & Mode Switch</h3>
+                        <p>The system performs regular connectivity checks to detect network availability. When a network outage is detected, it automatically transitions to offline mode. This seamless switch happens transparently to the customer, with a small indicator on the terminal display being the only visible change. The system immediately validates its local cache status to ensure it has the data necessary to continue operations.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Offline Transaction Processing</h3>
+                        <p>In offline mode, the system uses locally cached product information to handle checkout operations. RFID scanning and product recognition continue to function normally. The system enforces predetermined offline transaction limits to manage risk, only allowing transactions below certain thresholds to proceed without online verification. For transactions exceeding these limits, the system requests alternative payment methods that don't require online authorization (e.g., cash).</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-hdd"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Local Data Management</h3>
+                        <p>All offline transactions are securely stored in the terminal's local storage with full encryption. For each transaction, the system generates a cryptographic proof (a digital signature using asymmetric cryptography) that ensures transaction integrity and prevents tampering. Offline receipts are generated with clear marking of their offline status and contain all necessary transaction details. These measures ensure that offline operations maintain the same level of data integrity as online ones.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Network Reconnection & Data Synchronization</h3>
+                        <p>The system continuously checks for network restoration while operating offline. Upon reconnection, it doesn't immediately switch back to online mode but instead queues all offline transactions for synchronization. These transactions are then uploaded to the server in batches to optimize bandwidth usage and minimize synchronization time, with cryptographic proofs validated to ensure data integrity.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Conflict Resolution</h3>
+                        <p>The server validates all offline transactions upon receipt, checking for data consistency, duplicate transactions, and inventory conflicts. If conflicts are detected (e.g., items sold offline that were also sold online at another location), the system employs reconciliation algorithms to resolve these issues based on predefined business rules. After all conflicts are resolved, local caches are updated with the latest data from the server, and the terminal resumes normal online operation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons" data-aos="fade-up">
+                <a href="9_security_architecture.html" class="nav-button prev">
+                    <i class="fas fa-chevron-left"></i> Security Architecture
+                </a>
+                <a href="11_database_schema.html" class="nav-button next">
+                    Database Schema <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 NeuroNexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Mermaid with specific settings for better rendering
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            logLevel: 'error'
+        });
+
+        // Function to check if an element is visible in the viewport
+        function isElementVisible(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Allow some time for mermaid to render first
+            let attempts = 0;
+            const maxAttempts = 10;
+            const checkInterval = 500; // Check every 500ms
+            
+            function initPanzoom() {
+                const mermaidDiv = document.querySelector('.mermaid');
+                const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
+                
+                if (diagramSvg && isElementVisible(diagramSvg)) {
+                    console.log("Mermaid diagram rendered successfully!");
+                    
+                    // Make sure the SVG is fully visible
+                    diagramSvg.style.display = 'block';
+                    diagramSvg.style.width = '100%';
+                    diagramSvg.style.height = '100%';
+                    diagramSvg.style.minWidth = '100%';
+                    diagramSvg.style.minHeight = '100%';
+                    
+                    // Initialize Panzoom on the diagram element
+                    const element = document.getElementById('diagram-element');
+                    
+                    if (element && typeof Panzoom === 'function') {
+                        try {
+                            // Initialize Panzoom with optimized settings
+                            const panzoom = Panzoom(element, {
+                                maxScale: 5,
+                                minScale: 0.5,
+                                contain: 'outside',
+                                excludeClass: 'zoom-controls',
+                                canvas: true
+                            });
+                            
+                            // Set the cursor style
+                            element.style.cursor = 'grab';
+                            
+                            // Enable mouse wheel zooming
+                            element.addEventListener('wheel', function(e) {
+                                e.preventDefault();
+                                const delta = e.deltaY;
+                                
+                                if (delta > 0) {
+                                    panzoom.zoomOut(0.2, {
+                                        animate: false
+                                    });
+                                } else {
+                                    panzoom.zoomIn(0.2, {
+                                        animate: false
+                                    });
+                                }
+                            });
+                            
+                            // Change cursor when dragging
+                            element.addEventListener('mousedown', function() {
+                                this.style.cursor = 'grabbing';
+                            });
+                            
+                            element.addEventListener('mouseup', function() {
+                                this.style.cursor = 'grab';
+                            });
+                            
+                            // Connect zoom control buttons
+                            document.getElementById('zoom-in').addEventListener('click', function() {
+                                panzoom.zoomIn(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('zoom-out').addEventListener('click', function() {
+                                panzoom.zoomOut(0.5, { animate: true });
+                            });
+                            
+                            document.getElementById('reset-zoom').addEventListener('click', function() {
+                                panzoom.reset({ animate: true });
+                            });
+                            
+                            // Prevent text selection when dragging
+                            element.addEventListener('selectstart', function(e) {
+                                e.preventDefault();
+                                return false;
+                            });
+                            
+                            console.log("Panzoom initialized successfully");
+                        } catch (error) {
+                            console.error("Panzoom initialization error:", error);
+                        }
+                    } else {
+                        console.warn("Diagram element not found or Panzoom not available");
+                    }
+                } else {
+                    // Try again if we haven't exceeded max attempts
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
+                        setTimeout(initPanzoom, checkInterval);
+                    } else {
+                        console.error("Failed to find rendered Mermaid diagram after multiple attempts");
+                        alert("There was a problem rendering the diagram. Please refresh the page to try again.");
+                    }
+                }
+            }
+            
+            // Start checking for diagram rendering
+            setTimeout(initPanzoom, 500);
+        });
+    </script>
+</body>
+</html> 
