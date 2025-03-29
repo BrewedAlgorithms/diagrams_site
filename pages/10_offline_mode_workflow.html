@@ -6,7 +6,7 @@
     <title>Offline Mode Workflow - NeuroNexus</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -343,8 +343,9 @@
             let attempts = 0;
             const maxAttempts = 10;
             const checkInterval = 500; // Check every 500ms
+            let panZoomInstance = null;
             
-            function initPanzoom() {
+            function initSvgPanZoom() {
                 const mermaidDiv = document.querySelector('.mermaid');
                 const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
                 
@@ -355,83 +356,49 @@
                     diagramSvg.style.display = 'block';
                     diagramSvg.style.width = '100%';
                     diagramSvg.style.height = '100%';
-                    diagramSvg.style.minWidth = '100%';
-                    diagramSvg.style.minHeight = '100%';
                     
-                    // Initialize Panzoom on the diagram element
-                    const element = document.getElementById('diagram-element');
-                    
-                    if (element && typeof Panzoom === 'function') {
-                        try {
-                            // Initialize Panzoom with optimized settings
-                            const panzoom = Panzoom(element, {
-                                maxScale: 5,
-                                minScale: 0.5,
-                                contain: 'outside',
-                                excludeClass: 'zoom-controls',
-                                canvas: true
-                            });
-                            
-                            // Set the cursor style
-                            element.style.cursor = 'grab';
-                            
-                            // Enable mouse wheel zooming
-                            element.addEventListener('wheel', function(e) {
-                                e.preventDefault();
-                                const delta = e.deltaY;
-                                
-                                if (delta > 0) {
-                                    panzoom.zoomOut(0.2, {
-                                        animate: false
-                                    });
-                                } else {
-                                    panzoom.zoomIn(0.2, {
-                                        animate: false
-                                    });
-                                }
-                            });
-                            
-                            // Change cursor when dragging
-                            element.addEventListener('mousedown', function() {
-                                this.style.cursor = 'grabbing';
-                            });
-                            
-                            element.addEventListener('mouseup', function() {
-                                this.style.cursor = 'grab';
-                            });
-                            
-                            // Connect zoom control buttons
-                            document.getElementById('zoom-in').addEventListener('click', function() {
-                                panzoom.zoomIn(0.5, { animate: true });
-                            });
-                            
-                            document.getElementById('zoom-out').addEventListener('click', function() {
-                                panzoom.zoomOut(0.5, { animate: true });
-                            });
-                            
-                            document.getElementById('reset-zoom').addEventListener('click', function() {
-                                panzoom.reset({ animate: true });
-                            });
-                            
-                            // Prevent text selection when dragging
-                            element.addEventListener('selectstart', function(e) {
-                                e.preventDefault();
-                                return false;
-                            });
-                            
-                            console.log("Panzoom initialized successfully");
-                        } catch (error) {
-                            console.error("Panzoom initialization error:", error);
-                        }
-                    } else {
-                        console.warn("Diagram element not found or Panzoom not available");
+                    try {
+                        // Initialize svg-pan-zoom on the SVG element
+                        panZoomInstance = svgPanZoom(diagramSvg, {
+                            zoomEnabled: true, 
+                            controlIconsEnabled: false,
+                            fit: true,
+                            center: true,
+                            minZoom: 0.5,
+                            maxZoom: 5,
+                            zoomScaleSensitivity: 0.5
+                        });
+                        
+                        // Connect zoom control buttons
+                        document.getElementById('zoom-in').addEventListener('click', function() {
+                            panZoomInstance.zoomIn();
+                        });
+                        
+                        document.getElementById('zoom-out').addEventListener('click', function() {
+                            panZoomInstance.zoomOut();
+                        });
+                        
+                        document.getElementById('reset-zoom').addEventListener('click', function() {
+                            panZoomInstance.reset();
+                        });
+                        
+                        // Handle window resize
+                        window.addEventListener('resize', function() {
+                            panZoomInstance.resize();
+                            panZoomInstance.fit();
+                            panZoomInstance.center();
+                        });
+                        
+                        console.log("svg-pan-zoom initialized successfully");
+                    } catch (error) {
+                        console.error("svg-pan-zoom initialization error:", error);
                     }
                 } else {
                     // Try again if we haven't exceeded max attempts
                     attempts++;
                     if (attempts < maxAttempts) {
                         console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
-                        setTimeout(initPanzoom, checkInterval);
+                        setTimeout(initSvgPanZoom, checkInterval);
                     } else {
                         console.error("Failed to find rendered Mermaid diagram after multiple attempts");
                         alert("There was a problem rendering the diagram. Please refresh the page to try again.");
@@ -440,7 +407,7 @@
             }
             
             // Start checking for diagram rendering
-            setTimeout(initPanzoom, 500);
+            setTimeout(initSvgPanZoom, 500);
         });
     </script>
 </body>

@@ -6,7 +6,7 @@
     <title>Biometric Payment Sequence - NeuroNexus</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -23,7 +23,6 @@
             width: 100%;
         }
         #diagram-element {
-            transform-origin: 0 0;
             width: 100%;
             height: 100%;
             user-select: none;
@@ -64,8 +63,6 @@
             width: 100%;
             height: 100%;
             display: block !important;
-            min-width: 100%;
-            min-height: 100%;
         }
     </style>
 </head>
@@ -244,6 +241,11 @@
                 noteFontSize: 14,
                 messageFont: 14
             },
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            },
             logLevel: 'error'
         });
 
@@ -265,8 +267,9 @@
             let attempts = 0;
             const maxAttempts = 10;
             const checkInterval = 500; // Check every 500ms
+            let panZoomInstance = null;
             
-            function initPanzoom() {
+            function initSvgPanZoom() {
                 const mermaidDiv = document.querySelector('.mermaid');
                 const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
                 
@@ -277,83 +280,49 @@
                     diagramSvg.style.display = 'block';
                     diagramSvg.style.width = '100%';
                     diagramSvg.style.height = '100%';
-                    diagramSvg.style.minWidth = '100%';
-                    diagramSvg.style.minHeight = '100%';
                     
-                    // Initialize Panzoom on the diagram element
-                    const element = document.getElementById('diagram-element');
-                    
-                    if (element && typeof Panzoom === 'function') {
-                        try {
-                            // Initialize Panzoom with optimized settings
-                            const panzoom = Panzoom(element, {
-                                maxScale: 5,
-                                minScale: 0.5,
-                                contain: 'outside',
-                                excludeClass: 'zoom-controls',
-                                canvas: true
-                            });
-                            
-                            // Set the cursor style
-                            element.style.cursor = 'grab';
-                            
-                            // Enable mouse wheel zooming
-                            element.addEventListener('wheel', function(e) {
-                                e.preventDefault();
-                                const delta = e.deltaY;
-                                
-                                if (delta > 0) {
-                                    panzoom.zoomOut(0.2, {
-                                        animate: false
-                                    });
-                                } else {
-                                    panzoom.zoomIn(0.2, {
-                                        animate: false
-                                    });
-                                }
-                            });
-                            
-                            // Change cursor when dragging
-                            element.addEventListener('mousedown', function() {
-                                this.style.cursor = 'grabbing';
-                            });
-                            
-                            element.addEventListener('mouseup', function() {
-                                this.style.cursor = 'grab';
-                            });
-                            
-                            // Connect zoom control buttons
-                            document.getElementById('zoom-in').addEventListener('click', function() {
-                                panzoom.zoomIn(0.5, { animate: true });
-                            });
-                            
-                            document.getElementById('zoom-out').addEventListener('click', function() {
-                                panzoom.zoomOut(0.5, { animate: true });
-                            });
-                            
-                            document.getElementById('reset-zoom').addEventListener('click', function() {
-                                panzoom.reset({ animate: true });
-                            });
-                            
-                            // Prevent text selection when dragging
-                            element.addEventListener('selectstart', function(e) {
-                                e.preventDefault();
-                                return false;
-                            });
-                            
-                            console.log("Panzoom initialized successfully");
-                        } catch (error) {
-                            console.error("Panzoom initialization error:", error);
-                        }
-                    } else {
-                        console.warn("Diagram element not found or Panzoom not available");
+                    try {
+                        // Initialize svg-pan-zoom on the SVG element
+                        panZoomInstance = svgPanZoom(diagramSvg, {
+                            zoomEnabled: true, 
+                            controlIconsEnabled: false,
+                            fit: true,
+                            center: true,
+                            minZoom: 0.5,
+                            maxZoom: 5,
+                            zoomScaleSensitivity: 0.5
+                        });
+                        
+                        // Connect zoom control buttons
+                        document.getElementById('zoom-in').addEventListener('click', function() {
+                            panZoomInstance.zoomIn();
+                        });
+                        
+                        document.getElementById('zoom-out').addEventListener('click', function() {
+                            panZoomInstance.zoomOut();
+                        });
+                        
+                        document.getElementById('reset-zoom').addEventListener('click', function() {
+                            panZoomInstance.reset();
+                        });
+                        
+                        // Handle window resize
+                        window.addEventListener('resize', function() {
+                            panZoomInstance.resize();
+                            panZoomInstance.fit();
+                            panZoomInstance.center();
+                        });
+                        
+                        console.log("svg-pan-zoom initialized successfully");
+                    } catch (error) {
+                        console.error("svg-pan-zoom initialization error:", error);
                     }
                 } else {
                     // Try again if we haven't exceeded max attempts
                     attempts++;
                     if (attempts < maxAttempts) {
                         console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
-                        setTimeout(initPanzoom, checkInterval);
+                        setTimeout(initSvgPanZoom, checkInterval);
                     } else {
                         console.error("Failed to find rendered Mermaid diagram after multiple attempts");
                         alert("There was a problem rendering the diagram. Please refresh the page to try again.");
@@ -362,7 +331,335 @@
             }
             
             // Start checking for diagram rendering
-            setTimeout(initPanzoom, 500);
+            setTimeout(initSvgPanZoom, 500);
+        });
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biometric Payment Sequence - NeuroNexus</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            height: 600px;
+            width: 100%;
+        }
+        #diagram-element {
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .zoom-controls button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .zoom-controls button:hover {
+            background: var(--primary-color);
+        }
+        .mermaid {
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+        .mermaid svg {
+            touch-action: none;
+            width: 100%;
+            height: 100%;
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <i class="fas fa-project-diagram"></i>
+                <span>NeuroNexus</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#story">Our Story</a>
+            <a href="../index.html#diagrams">Diagrams</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../index.html#technology">Technology</a>
+        </div>
+    </nav>
+    
+    <div class="diagram-page">
+        <div class="page-content">
+            <h1 class="section-title" data-aos="fade-up">Biometric Payment Sequence</h1>
+            
+            <div class="diagram-explanation" data-aos="fade-up">
+                <p>This sequence diagram illustrates the detailed process flow of a biometric payment transaction using fingerprint authentication. It shows the interaction between different components in the system and ensures secure handling of both biometric data and payment information.</p>
+            </div>
+            
+            <div class="diagram-container" data-aos="fade-up">
+                <div class="zoom-controls">
+                    <button id="zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                    <button id="reset-zoom" title="Reset Zoom"><i class="fas fa-home"></i></button>
+                </div>
+                <div id="diagram-element">
+                    <div class="mermaid">
+                    sequenceDiagram
+                        participant Customer as 👤 Customer
+                        participant Scanner as 👆 Fingerprint Scanner
+                        participant Terminal as 📱 Checkout Terminal
+                        participant Server as 🖥️ Backend Server
+                        participant SecElem as 🔐 Secure Element
+                        participant Payment as 💳 Payment Gateway
+                        participant Bank as 🏦 Bank/Financial Institution
+                        
+                        Note over Customer,Bank: Biometric Payment Sequence
+                        
+                        Customer->>Scanner: Places finger on scanner
+                        Scanner->>Terminal: Capture fingerprint image
+                        
+                        Terminal->>Terminal: Extract fingerprint features
+                        Note right of Terminal: Local processing to minimize data transmission
+                        
+                        Terminal->>SecElem: Request stored template
+                        SecElem-->>Terminal: Return encrypted template
+                        
+                        Terminal->>Terminal: Compare fingerprint features<br>with stored template
+                        
+                        alt Authentication Successful
+                            Terminal->>Customer: Display authentication success
+                            Terminal->>Server: Send payment authorization request
+                            Server->>SecElem: Request payment token
+                            SecElem-->>Server: Return tokenized payment info
+                            Server->>Payment: Forward payment request with token
+                            Payment->>Bank: Process payment transaction
+                            Bank-->>Payment: Transaction result
+                            Payment-->>Server: Payment response
+                            Server-->>Terminal: Transaction confirmation
+                            Terminal-->>Customer: Display payment confirmation
+                        else Authentication Failed
+                            Terminal->>Customer: Display authentication failure
+                            Terminal->>Customer: Request retry or alternative payment
+                        end
+                        
+                        Note over Customer,Bank: Transaction complete
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-explanation" data-aos="fade-up">
+                <h2>Biometric Payment Process</h2>
+                <p>Our biometric payment system follows a secure, multi-step process designed to protect user data while offering a seamless payment experience:</p>
+                <br>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Fingerprint Capture & Processing</h3>
+                        <p>When a customer places their finger on the scanner, the system captures a fingerprint image. The checkout terminal processes this data locally, extracting only the necessary features from the fingerprint. This local processing ensures that complete fingerprint images are never transmitted over networks, enhancing security and privacy.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Secure Template Comparison</h3>
+                        <p>The terminal requests the customer's previously registered fingerprint template from the secure element chip, which stores biometric data in an encrypted format. The terminal then compares the extracted features against this template without ever exposing the stored template. This zero-knowledge proof approach provides strong authentication while protecting user privacy.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Tokenized Payment Processing</h3>
+                        <p>After successful authentication, the system uses tokenization to handle financial data securely. Instead of sending actual payment details, the system requests a payment token from the secure element. This token represents the payment information without containing the actual sensitive data, adding another layer of security to the transaction.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Transaction Processing</h3>
+                        <p>The tokenized payment information is forwarded to the payment gateway, which communicates with the customer's financial institution to process the transaction. This multi-step approach ensures that each component in the system only has access to the information necessary for its specific function, following the principle of least privilege.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Fallback Mechanisms</h3>
+                        <p>If biometric authentication fails, the customer has the option to retry or use an alternative payment method. This ensures that even customers with temporary authentication issues can complete their purchases without frustration, improving the overall shopping experience.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons" data-aos="fade-up">
+                <a href="2_user_journey.html" class="nav-button prev">
+                    <i class="fas fa-chevron-left"></i> User Journey
+                </a>
+                <a href="4_data_flow_diagram.html" class="nav-button next">
+                    Data Flow Diagram <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="../index.html">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>NeuroNexus</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#story">Our Story</a>
+                <a href="../index.html#diagrams">Diagrams</a>
+                <a href="../index.html#research">Research</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 NeuroNexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Mermaid with specific settings for better rendering
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            logLevel: 'error'
+        });
+
+        // Function to check if an element is visible in the viewport
+        function isElementVisible(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Allow some time for mermaid to render first
+            let attempts = 0;
+            const maxAttempts = 10;
+            const checkInterval = 500; // Check every 500ms
+            let panZoomInstance = null;
+            
+            function initSvgPanZoom() {
+                const mermaidDiv = document.querySelector('.mermaid');
+                const diagramSvg = mermaidDiv ? mermaidDiv.querySelector('svg') : null;
+                
+                if (diagramSvg && isElementVisible(diagramSvg)) {
+                    console.log("Mermaid diagram rendered successfully!");
+                    
+                    // Make sure the SVG is fully visible
+                    diagramSvg.style.display = 'block';
+                    diagramSvg.style.width = '100%';
+                    diagramSvg.style.height = '100%';
+                    
+                    try {
+                        // Initialize svg-pan-zoom on the SVG element
+                        panZoomInstance = svgPanZoom(diagramSvg, {
+                            zoomEnabled: true, 
+                            controlIconsEnabled: false,
+                            fit: true,
+                            center: true,
+                            minZoom: 0.5,
+                            maxZoom: 5,
+                            zoomScaleSensitivity: 0.5
+                        });
+                        
+                        // Connect zoom control buttons
+                        document.getElementById('zoom-in').addEventListener('click', function() {
+                            panZoomInstance.zoomIn();
+                        });
+                        
+                        document.getElementById('zoom-out').addEventListener('click', function() {
+                            panZoomInstance.zoomOut();
+                        });
+                        
+                        document.getElementById('reset-zoom').addEventListener('click', function() {
+                            panZoomInstance.reset();
+                        });
+                        
+                        // Handle window resize
+                        window.addEventListener('resize', function() {
+                            panZoomInstance.resize();
+                            panZoomInstance.fit();
+                            panZoomInstance.center();
+                        });
+                        
+                        console.log("svg-pan-zoom initialized successfully");
+                    } catch (error) {
+                        console.error("svg-pan-zoom initialization error:", error);
+                    }
+                } else {
+                    // Try again if we haven't exceeded max attempts
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        console.log(`Waiting for Mermaid diagram to render... (attempt ${attempts}/${maxAttempts})`);
+                        setTimeout(initSvgPanZoom, checkInterval);
+                    } else {
+                        console.error("Failed to find rendered Mermaid diagram after multiple attempts");
+                        alert("There was a problem rendering the diagram. Please refresh the page to try again.");
+                    }
+                }
+            }
+            
+            // Start checking for diagram rendering
+            setTimeout(initSvgPanZoom, 500);
         });
     </script>
 </body>
